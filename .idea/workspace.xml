@@ -2,27 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9ece6b71-0e73-4f20-b666-18740867b407" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bias-autoscaler.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/micronaut-cli.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/configuration/AutoscalerConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/configuration/GoogleCloudAuth.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/controller/RestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/exception/GeneralHttpException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jaimedantas/service/BackendUsageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/jaimedantas/BiasAutoscalerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/services/io.micronaut.inject.BeanDefinitionReference" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/spring-configuration-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/swagger/bias-autoscaler-0.1.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/swagger/swagger.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/swagger/views/rapidoc/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/swagger/views/swagger-ui/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/configuration/$AutoscalerConfigurationDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/configuration/$AutoscalerConfigurationDefinitionClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/configuration/AutoscalerConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/configuration/GoogleCloudAuth.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$$RestControllerDefinition$InterceptedDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$$RestControllerDefinition$InterceptedDefinitionClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$RestControllerDefinition$$exec1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$RestControllerDefinition$$exec2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$RestControllerDefinition$Intercepted.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$RestControllerDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/$RestControllerDefinitionClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/controller/RestController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/exception/GeneralHttpException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/service/$BackendUsageServiceDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/service/$BackendUsageServiceDefinitionClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/jaimedantas/service/BackendUsageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/services/io.micronaut.inject.BeanDefinitionReference" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/jaimedantas/$BiasAutoscalerTestDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/jaimedantas/$BiasAutoscalerTestDefinitionClass.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/jaimedantas/BiasAutoscalerTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,12 +99,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1616365126810</updated>
-      <workItem from="1616365138580" duration="10552000" />
+      <workItem from="1616365138580" duration="10919000" />
     </task>
+    <task id="LOCAL-00001" summary="Initial development">
+      <created>1616377191860</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1616377191860</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial development" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial development" />
   </component>
   <component name="WindowStateProjectService">
     <state x="106" y="-722" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1616366111128">
@@ -104,10 +127,10 @@
       <screen x="-41" y="-768" width="1366" height="768" />
     </state>
     <state x="379" y="-593" key="#com.intellij.ide.util.TreeClassChooserDialog/-41.-768.1366.768/0.0.1280.800@-41.-768.1366.768" timestamp="1616366104298" />
-    <state x="105" y="-768" key="CommitChangelistDialog2" timestamp="1616377146593">
+    <state x="105" y="-768" key="CommitChangelistDialog2" timestamp="1616377191132">
       <screen x="-41" y="-768" width="1366" height="768" />
     </state>
-    <state x="105" y="-768" key="CommitChangelistDialog2/-41.-768.1366.768/0.0.1280.800@-41.-768.1366.768" timestamp="1616377146593" />
+    <state x="105" y="-768" key="CommitChangelistDialog2/-41.-768.1366.768/0.0.1280.800@-41.-768.1366.768" timestamp="1616377191132" />
     <state width="521" height="438" key="DebuggerActiveHint" timestamp="1616373334184">
       <screen x="-41" y="-768" width="1366" height="768" />
     </state>
@@ -152,6 +175,10 @@
       <screen x="-41" y="-768" width="1366" height="768" />
     </state>
     <state width="1324" height="250" key="GridCell.Tab.1.right/-41.-768.1366.768/0.0.1280.800@-41.-768.1366.768" timestamp="1616376285788" />
+    <state x="242" y="-656" key="Vcs.Push.Dialog.v2" timestamp="1616377197820">
+      <screen x="-41" y="-768" width="1366" height="768" />
+    </state>
+    <state x="242" y="-656" key="Vcs.Push.Dialog.v2/-41.-768.1366.768/0.0.1280.800@-41.-768.1366.768" timestamp="1616377197820" />
     <state x="321" y="-552" key="com.intellij.ide.util.TipDialog" timestamp="1616365140542">
       <screen x="-41" y="-768" width="1366" height="768" />
     </state>
