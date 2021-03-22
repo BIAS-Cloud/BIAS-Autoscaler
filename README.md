@@ -4,7 +4,7 @@ compute engines on Google Cloud. Unlike most of the autoscalers available in the
 make use of burstable instances for reducing the cost of cloud resources while increasing quality of service
 metrics.
 
-## Languages and libraries
+## Languages and frameworks
  - Java 11
  - Micronaut Framework
  - Swagger UI
