@@ -11,8 +11,8 @@ metrics.
  - Lombock
  
 ### Google Cloud SDK and Libraries
- -[Compute Engine API Client Library for Java](https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-compute/beta)
- -[Google Cloud SDK](https://cloud.google.com/sdk/)
+ - [Compute Engine API Client Library for Java](https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-compute/beta)
+ - [Google Cloud SDK](https://cloud.google.com/sdk/)
 
 ## Documentation
 Swagger UI is used for documentation. You can find the information accessing the webpage below.
