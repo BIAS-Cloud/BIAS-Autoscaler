@@ -1,0 +1,55 @@
+openapi: 3.0.1
+paths:
+  /autoscaler/v1/service:
+    get:
+      summary: Retrieves the information about a backend service balancing policy
+      description: Retrieves the information about a backend service balancing policy
+      operationId: getBackendService
+      parameters:
+      - name: backendService
+        in: query
+        description: Backend Service
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      responses:
+        "200":
+          description: All the information about the backend service
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+  /autoscaler/v1/service/policy:
+    post:
+      summary: Sets the load balancing policy for a instance group of a service.
+      description: Sets the load balancing policy for a instance group of a service.
+      operationId: setBackendServicePolicy
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              required:
+              - backendService
+              - cpuUtilization
+              - instanceGroup
+              type: object
+              properties:
+                backendService:
+                  minLength: 1
+                  type: string
+                  description: ""
+                cpuUtilization:
+                  type: number
+                  description: Sets the load balancing policy for a instance group
+                    of a service.
+                  format: float
+                instanceGroup:
+                  minLength: 1
+                  type: string
+                  description: ""
+        required: true
+      responses:
+        "200": {}
