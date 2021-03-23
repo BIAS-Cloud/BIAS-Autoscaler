@@ -5,12 +5,15 @@ import com.google.api.services.compute.model.BackendService;
 import com.google.api.services.compute.model.InstanceGroup;
 import com.jaimedantas.configuration.AutoscalerConfiguration;
 import com.jaimedantas.configuration.GoogleCloudAuth;
+import com.jaimedantas.enums.InstanceType;
+import com.jaimedantas.model.InstanceScale;
 import com.jaimedantas.service.BackendUsageService;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.logging.LoggingSystem;
@@ -64,6 +67,36 @@ public class RestController {
         logger.info("Setting service policy "+backendService);
 
         backendUsageService.setBackendServicePolicy(instanceGroup, backendService,cpuUtilization);
+
+    }
+
+    /**
+     * Creates a new instance and adds it to a instance group
+     * @param instanceScale ondemand or busrtable
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    @Post(uri = "/instance")
+    public void addInstance(@NotBlank InstanceScale instanceScale) throws IOException, GeneralSecurityException {
+
+        logger.info("Adding instance to "+instanceScale.getInstanceType());
+
+        backendUsageService.addInstanceToGroup(instanceScale.getInstanceType());
+
+    }
+
+    /**
+     * Deletes an instance
+     * @param instanceScale ondemand or busrtable
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    @Delete(uri = "/instance")
+    public void deleteInstance(@NotBlank InstanceScale instanceScale) throws IOException, GeneralSecurityException {
+
+        logger.info("Deleting instance from "+instanceScale.getInstanceType());
+
+        backendUsageService.removeInstanceFromGroup(instanceScale.getInstanceType());
 
     }
 }

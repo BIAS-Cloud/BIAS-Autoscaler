@@ -18,3 +18,10 @@ micronaut:
 autoscaler:
   project: yorkuniveristy
   zone: us-central1-a
+  machine-type-ondemand: e2-standard-2
+  instance-group-ondemand: instance-group-ondemand
+  machine-image-ondemand: wiki-image-ondemand
+  machine-type-burstable: e2-medium
+  instance-group-burstable: instance-group-burstable
+  machine-image-burstable: wiki-image-burstable
+
