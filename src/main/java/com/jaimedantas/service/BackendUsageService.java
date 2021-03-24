@@ -9,9 +9,7 @@ import com.jaimedantas.enums.InstanceType;
 import javax.inject.Inject;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class BackendUsageService {
 
@@ -80,6 +78,9 @@ public class BackendUsageService {
                     "/machineTypes/" + autoscalerConfiguration.getMachineTypeBurstable());
             requestBodyI.setSourceMachineImage("projects/" + autoscalerConfiguration.getProject() +
                     "/global/machineImages/" + autoscalerConfiguration.getMachineImageBurstable());
+            Map<String,String> labels = new HashMap<>();
+            labels.put("instance-type", InstanceType.BURSTABLE.toString().toLowerCase());
+            requestBodyI.setLabels(labels);
 
             instanceGroup = autoscalerConfiguration.getInstanceGroupBurstable();
 
@@ -92,6 +93,9 @@ public class BackendUsageService {
                     "/machineTypes/" + autoscalerConfiguration.getMachineTypeOndemand());
             requestBodyI.setSourceMachineImage("projects/" + autoscalerConfiguration.getProject()+
                     "/global/machineImages/" + autoscalerConfiguration.getMachineImageOndemand());
+            Map<String,String> labels = new HashMap<>();
+            labels.put("instance-type", InstanceType.ONDEMAND.toString().toLowerCase());
+            requestBodyI.setLabels(labels);
 
             instanceGroup= autoscalerConfiguration.getInstanceGroupOndemand();
 

@@ -15,13 +15,29 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+  metrics:
+    enabled: true
+    binders:
+      processor: true
+
+endpoints:
+  health:
+    enabled: true
+    sensitive: false
+    details-visible: ANONYMOUS
+  metrics:
+    enabled: true
+    sensitive: false
+
 autoscaler:
   project: yorkuniveristy
   zone: us-central1-a
   machine-type-ondemand: e2-standard-2
   instance-group-ondemand: instance-group-ondemand
+  monitoring-group-ondemand: 1494871473937024979
   machine-image-ondemand: wiki-image-ondemand
   machine-type-burstable: e2-medium
   instance-group-burstable: instance-group-burstable
+  monitoring-group-burstable: 8600852950379919879
   machine-image-burstable: wiki-image-burstable
 

@@ -14,7 +14,9 @@ public class AutoscalerConfiguration {
     String machineTypeOndemand;
     String machineTypeBurstable;
     String instanceGroupOndemand;
+    String monitoringGroupOndemand;
     String instanceGroupBurstable;
+    String monitoringGroupBurstable;
     String machineImageOndemand;
     String machineImageBurstable;
 
