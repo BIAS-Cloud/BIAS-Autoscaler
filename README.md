@@ -1,4 +1,4 @@
-<p align="center"><img src="/docs/bias.png" height="25%" width="25%"> </p>
+<p align="center"><img src="/docs/BIAS_logo.png" height="25%" width="25%"> </p>
 
 # BIAS Autoscaler
 BIAS Autoscaler leverages burstable instances for scaling computer engines instances on GCP. It automatically scales out and in
