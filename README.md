@@ -1,12 +1,20 @@
+<p align="center"><img src="/docs/bias.png" height="25%" width="25%"> </p>
+
 # BIAS Autoscaler
-BIAS Autoscaler leverages burstable instances for scaling computer engines on GCP. It automatically scales out and in
+BIAS Autoscaler leverages burstable instances for scaling computer engines instances on GCP. It automatically scales out and in
 compute engines on Google Cloud. Unlike most of the autoscalers available in the industry, BIAS Austoscaler 
 make use of burstable instances for reducing the cost of cloud resources while increasing quality of service
 metrics.
 
+## Architecture
+BIAS Autoscaler uses the Google API and Google SDK for scaling out and in the compute engine instance. The Cloud Load Balancing
+is used for tuning the CPU usage of the burstable instances in real time. 
+
+<p align="center"><img src="/docs/gcp_diagram.jpg" height="20%" width="20%"> </p>
+
 ## Languages and frameworks
  - Java 11
- - Micronaut Framework
+ - Micronaut Framework 2.4.1
  - Swagger UI
  - Lombock
  
