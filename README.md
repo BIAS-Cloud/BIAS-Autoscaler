@@ -27,6 +27,7 @@ Swagger UI is used for documentation. You can find the information accessing the
 ```
 http://localhost:8080/swagger/views/swagger-ui/
 ```
+You can manage your cluster using the Swagger interface of the BIAS Autoscaler.  
 <p align="center"><img src="/docs/BIAS_Swagger.png" height="50%" width="50%"> </p>
 
 
