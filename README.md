@@ -18,6 +18,11 @@ is used for tuning the CPU usage of the burstable instances in real time.
  - Swagger UI
  - Lombock  
  
+## Requirements
+- JDK 11
+- Maven 3
+- Google Cloud SDK
+
 ### Google Cloud SDK and Libraries
  - [Compute Engine API Client Library for Java](https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-compute/beta)
  - [Google Cloud SDK](https://cloud.google.com/sdk/)
@@ -28,13 +33,19 @@ Swagger UI is used for documentation. You can find the information accessing the
 http://localhost:8080/swagger/views/swagger-ui/
 ```
 You can manage your cluster using the Swagger interface of the BIAS Autoscaler.  
-<p align="center"><img src="/docs/BIAS_Swagger.png" height="50%" width="50%"> </p>
 
+<p align="center"><img src="/docs/BIAS_Swagger.png" height="50%" width="50%"> </p>
 
 ## Building From Source
 To build from source checkout the code and run:
 ```
-mvn clean install
+$ mvn clean install
+```
+## Run
+To run the BIAS Autoscaler, run:
+
+```
+$ java -jar bias-autoscaler-0.1.jar
 ```
 
 ## Configuration
