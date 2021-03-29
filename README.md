@@ -34,7 +34,7 @@ http://localhost:8080/swagger/views/swagger-ui/
 ```
 You can manage your cluster using the Swagger interface of the BIAS Autoscaler.  
 
-<p align="center"><img src="/docs/BIAS_Swagger.png" height="50%" width="50%"> </p>
+<p align="center"><img src="/docs/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
 
 ## Building From Source
 To build from source checkout the code and run:
