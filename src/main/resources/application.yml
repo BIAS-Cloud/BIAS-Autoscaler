@@ -32,12 +32,12 @@ endpoints:
 autoscaler:
   project: yorkuniveristy
   zone: us-central1-a
-  machine-type-ondemand: e2-standard-2
+  machine-type-ondemand: n1-standard-1
   instance-group-ondemand: instance-group-ondemand
   monitoring-group-ondemand: 1494871473937024979
-  machine-image-ondemand: wiki-image-ondemand
-  machine-type-burstable: e2-medium
+  machine-image-ondemand: microservice-image-ondemand
+  machine-type-burstable: g1-small
   instance-group-burstable: instance-group-burstable
   monitoring-group-burstable: 8600852950379919879
-  machine-image-burstable: wiki-image-burstable
+  machine-image-burstable: microservice-image-burstable
 
