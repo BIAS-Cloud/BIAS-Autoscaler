@@ -15,7 +15,7 @@ is used for tuning the CPU usage of the burstable instances in real time.
 ### Internal design
 The internal architecture of the BIAS Autoscaler is composed by three major block: the controller, monitor and scaling systems.
 
-<p align="center"><img src="/docs/BIAS_architecture.png" height="60%" width="60%"> </p>
+<p align="center"><img src="/docs/BIAS_architecture.png" height="50%" width="50%"> </p>
 
 ## Languages and frameworks
  - Java 11
