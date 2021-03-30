@@ -13,7 +13,7 @@ is used for tuning the CPU usage of the burstable instances in real time.
 <p align="center"><img src="/docs/gcp_diagram.jpg" height="70%" width="70%"> </p>
 
 ### Internal design
-The internal architecture of the BIAS Autoscaler is composed by three major blocks: Controller, Monitor and Scaling Policy parts.
+The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy parts.
 
 <p align="center"><img src="/docs/BIAS_architecture.png" height="50%" width="50%"> </p>
 
