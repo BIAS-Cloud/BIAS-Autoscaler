@@ -12,6 +12,11 @@ is used for tuning the CPU usage of the burstable instances in real time.
 
 <p align="center"><img src="/docs/gcp_diagram.jpg" height="70%" width="70%"> </p>
 
+### Internal design
+The internal architecture of the BIAS Autoscaler is composed by three major block: the controller, monitor and scaling systems.
+
+<p align="center"><img src="/docs/BIAS_architecture.png" height="60%" width="60%"> </p>
+
 ## Languages and frameworks
  - Java 11
  - Micronaut Framework 2.4.1
