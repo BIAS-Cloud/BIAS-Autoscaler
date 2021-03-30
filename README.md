@@ -18,14 +18,15 @@ is used for tuning the CPU usage of the burstable instances in real time.
  - Swagger UI
  - Lombock  
  
+### Google Cloud SDK and Libraries
+ - [Google Compute Engine API Client Library for Java](https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-compute/beta)
+ - [Google Stackdriver Monitoring Client for Java](https://github.com/googleapis/java-monitoring)
+ - [Google Cloud SDK](https://cloud.google.com/sdk/)
+
 ## Requirements
 - JDK 11
 - Maven 3
 - Google Cloud SDK
-
-### Google Cloud SDK and Libraries
- - [Compute Engine API Client Library for Java](https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-compute/beta)
- - [Google Cloud SDK](https://cloud.google.com/sdk/)
 
 ## Documentation
 Swagger UI is used for documentation. You can find the information accessing the webpage below.

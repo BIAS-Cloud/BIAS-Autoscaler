@@ -1,6 +1,5 @@
 package com.jaimedantas.service;
 
-
 import com.google.cloud.monitoring.v3.MetricServiceClient;
 import com.google.monitoring.v3.Aggregation;
 import com.google.monitoring.v3.ListTimeSeriesRequest;
@@ -17,9 +16,8 @@ import org.slf4j.LoggerFactory;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-
 @Singleton
-public class MonitorInstances {
+public class MonitorLoadBalancer {
 
     @Inject
     AutoscalerConfiguration autoscalerConfiguration;
@@ -30,7 +28,7 @@ public class MonitorInstances {
     @Scheduled(fixedDelay = "3m")
     void executeEveryTen() {
 
-        logger.info("Running the scheduler for CPU metrics");
+        logger.info("Running the scheduler for the Load Balancer metrics");
 
         // Initialize client that will be used to send requests. This client only needs to be created
         // once, and can be reused for multiple requests.
@@ -55,7 +53,7 @@ public class MonitorInstances {
             ListTimeSeriesRequest request =
                     ListTimeSeriesRequest.newBuilder()
                             .setName(projectName.toString())
-                            .setFilter("metric.type = \"compute.googleapis.com/instance/cpu/utilization\"")
+                            .setFilter("metric.type = \"loadbalancing.googleapis.com/https/backend_request_count\"")
                             .setInterval(interval)
                             .setAggregation(aggregation)
                             .build();
@@ -67,9 +65,9 @@ public class MonitorInstances {
             // Process the response
             response.iterateAll().forEach(
                     timeSeries -> {
-                        logger.info("Instance name: {}", timeSeries.getMetric().getLabelsMap().get("instance_name"));
+                        logger.info("Instance Group: {}", timeSeries.getResource().getLabelsMap().get("backend_name"));
                         timeSeries.getPointsList().forEach(
-                                point -> logger.info("CPU: {}%", point.getValue().getDoubleValue()));
+                                point -> logger.info("Requests: {}", point.getValue().getDoubleValue()));
                     }
             );
         }

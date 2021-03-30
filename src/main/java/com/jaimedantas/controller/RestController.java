@@ -1,14 +1,9 @@
 package com.jaimedantas.controller;
 
-import com.google.api.services.compute.Compute;
 import com.google.api.services.compute.model.BackendService;
-import com.google.api.services.compute.model.InstanceGroup;
-import com.jaimedantas.configuration.AutoscalerConfiguration;
-import com.jaimedantas.configuration.GoogleCloudAuth;
-import com.jaimedantas.enums.InstanceType;
 import com.jaimedantas.model.InstanceScale;
-import com.jaimedantas.service.BackendUsageService;
-import io.micronaut.context.annotation.Bean;
+import com.jaimedantas.service.BackendServiceUsage;
+import com.jaimedantas.service.InstanceAllocation;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
@@ -16,7 +11,6 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Delete;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.logging.LoggingSystem;
 import io.micronaut.validation.Validated;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -32,7 +26,10 @@ import java.security.GeneralSecurityException;
 public class RestController {
 
     @Inject
-    BackendUsageService backendUsageService;
+    BackendServiceUsage backendServiceUsage;
+
+    @Inject
+    InstanceAllocation instanceAllocation;
 
     private static final Logger logger = LoggerFactory.getLogger(RestController.class);
 
@@ -48,7 +45,7 @@ public class RestController {
 
         logger.info("Getting info about service: "+backendService);
 
-        return HttpResponse.status(HttpStatus.OK).body(backendUsageService.getBackendServiceInfo(backendService));
+        return HttpResponse.status(HttpStatus.OK).body(backendServiceUsage.getBackendServiceInfo(backendService));
     }
 
     /**
@@ -66,7 +63,7 @@ public class RestController {
 
         logger.info("Setting service policy "+backendService);
 
-        backendUsageService.setBackendServicePolicy(instanceGroup, backendService,cpuUtilization);
+        backendServiceUsage.setBackendServicePolicy(instanceGroup, backendService,cpuUtilization);
 
     }
 
@@ -81,7 +78,7 @@ public class RestController {
 
         logger.info("Adding instance to "+instanceScale.getInstanceType());
 
-        backendUsageService.addInstanceToGroup(instanceScale.getInstanceType());
+        instanceAllocation.addInstanceToGroup(instanceScale.getInstanceType());
 
     }
 
@@ -96,7 +93,7 @@ public class RestController {
 
         logger.info("Deleting instance from "+instanceScale.getInstanceType());
 
-        backendUsageService.removeInstanceFromGroup(instanceScale.getInstanceType());
+        instanceAllocation.removeInstanceFromGroup(instanceScale.getInstanceType());
 
     }
 }

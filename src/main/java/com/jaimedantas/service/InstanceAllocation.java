@@ -11,53 +11,10 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
-public class BackendUsageService {
+public class InstanceAllocation {
 
     @Inject
     AutoscalerConfiguration autoscalerConfiguration;
-
-    /**
-     * Calls the BackendService from GCP to get its info. The backend service is used for the policy
-     * of load balancing.
-     * @return
-     * @throws IOException
-     * @throws GeneralSecurityException
-     */
-    public BackendService getBackendServiceInfo(String backendService) throws IOException, GeneralSecurityException {
-
-        Compute.BackendServices.Get request =
-                GoogleCloudAuth.computeService().backendServices().get(autoscalerConfiguration.getProject(), backendService);
-
-        return request.execute();
-    }
-
-    /**
-     * Sets the load balancing policy for an instance group of a service.
-     * @param instanceGroup
-     * @param backendService
-     * @param cpuUtilization 0 to 1
-     * @throws IOException
-     * @throws GeneralSecurityException
-     */
-    public void setBackendServicePolicy(String instanceGroup, String backendService, float cpuUtilization) throws IOException, GeneralSecurityException {
-
-
-        Compute.BackendServices.Get requestWithGetInfo =
-                GoogleCloudAuth.computeService().backendServices().get(autoscalerConfiguration.getProject(), backendService);
-        BackendService backendServiceInformation = requestWithGetInfo.execute();
-
-        backendServiceInformation.getBackends().forEach(backend -> {
-            if (backend.getGroup().contains(instanceGroup)){
-                backend.setMaxUtilization(cpuUtilization);
-            }
-        });
-
-        Compute.BackendServices.Update request =
-                GoogleCloudAuth.computeService().backendServices().update(autoscalerConfiguration.getProject(), backendService, backendServiceInformation);
-
-        Operation response = request.execute();
-
-    }
 
     /**
      * Adds a new instances to a existing security group
@@ -69,6 +26,18 @@ public class BackendUsageService {
         Instance requestBodyI = new Instance();
         String instanceGroup = null;
         UUID uuid = UUID.randomUUID();
+
+        List<NetworkInterface> networkInterfaces = new LinkedList<>();
+        List<AliasIpRange> aliasIpRanges = new LinkedList<>();
+
+        NetworkInterface networkInterface = new NetworkInterface();
+        networkInterface.setKind("compute#networkInterface");
+        networkInterface.setSubnetwork("projects/"+autoscalerConfiguration.getProject()+
+                "/regions/"+autoscalerConfiguration.getRegion()+"/subnetworks/default");
+        networkInterface.setAliasIpRanges(aliasIpRanges);
+        networkInterfaces.add(networkInterface);
+
+        requestBodyI.setNetworkInterfaces(networkInterfaces);
 
         if (InstanceType.BURSTABLE.equals(instanceType)) {
             requestBodyI.setName(InstanceType.BURSTABLE.toString().toLowerCase()+"-"+uuid);
@@ -147,7 +116,7 @@ public class BackendUsageService {
         if (response.getItems() != null) {
             String[] partsOfLink = response.getItems().get(0).getInstance().split("/");
             String instanceToRemove = partsOfLink[partsOfLink.length-1];
-                    Compute.Instances.Delete requestDelete =
+            Compute.Instances.Delete requestDelete =
                     GoogleCloudAuth.computeService().instances().delete(autoscalerConfiguration.getProject(), autoscalerConfiguration.getZone(), instanceToRemove);
             Operation responseDelete = requestDelete.execute();
         }

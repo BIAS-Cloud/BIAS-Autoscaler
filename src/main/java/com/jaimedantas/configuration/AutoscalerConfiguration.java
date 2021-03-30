@@ -10,6 +10,7 @@ import lombok.Setter;
 public class AutoscalerConfiguration {
 
     String zone;
+    String region;
     String project;
     String machineTypeOndemand;
     String machineTypeBurstable;

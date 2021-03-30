@@ -32,6 +32,7 @@ endpoints:
 autoscaler:
   project: yorkuniveristy
   zone: us-central1-a
+  region: us-central1
   machine-type-ondemand: n1-standard-1
   instance-group-ondemand: instance-group-ondemand
   monitoring-group-ondemand: 1494871473937024979
