@@ -25,10 +25,10 @@ public class MonitorLoadBalancer {
     private static final Logger logger = LoggerFactory.getLogger(MonitorInstances.class);
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "3m")
+    @Scheduled(fixedDelay = "2m")
     void executeEveryTen() {
 
-        logger.info("Running the scheduler for the Load Balancer metrics");
+        logger.info("Running the scheduler for Load Balancer metrics");
 
         // Initialize client that will be used to send requests. This client only needs to be created
         // once, and can be reused for multiple requests.
@@ -36,11 +36,11 @@ public class MonitorLoadBalancer {
             ProjectName projectName = ProjectName.of(autoscalerConfiguration.getProject());
 
             // Restrict time to last 20 minutes
-            long startMillis = System.currentTimeMillis() - ((60 * 3) * 1000);
+            long startMillis = System.currentTimeMillis() - ((60 * 6) * 1000);
             TimeInterval interval =
                     TimeInterval.newBuilder()
                             .setStartTime(Timestamps.fromMillis(startMillis))
-                            .setEndTime(Timestamps.fromMillis(System.currentTimeMillis()))
+                            .setEndTime(Timestamps.fromMillis(System.currentTimeMillis()-1000))
                             .build();
 
             Aggregation aggregation =
@@ -55,7 +55,7 @@ public class MonitorLoadBalancer {
                             .setName(projectName.toString())
                             .setFilter("metric.type = \"loadbalancing.googleapis.com/https/backend_request_count\"")
                             .setInterval(interval)
-                            .setAggregation(aggregation)
+//                            .setAggregation(aggregation)
                             .build();
 
             // Send the request to list the time series

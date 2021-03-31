@@ -107,11 +107,6 @@
     </dependency>
     <dependency>
       <groupId>io.micronaut.micrometer</groupId>
-      <artifactId>micronaut-micrometer-registry-graphite</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.micronaut.micrometer</groupId>
       <artifactId>micronaut-micrometer-registry-prometheus</artifactId>
       <scope>compile</scope>
     </dependency>

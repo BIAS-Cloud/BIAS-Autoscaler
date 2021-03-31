@@ -15,7 +15,7 @@ is used for tuning the CPU usage of the burstable instances in real time.
 ### Internal design
 The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy parts.
 
-<p align="center"><img src="/docs/BIAS_architecture.png" height="50%" width="50%"> </p>
+<p align="center"><img src="/docs/BIAS_architecture.jpg" height="50%" width="50%"> </p>
 
 ## Languages and frameworks
  - Java 11
@@ -55,5 +55,5 @@ $ java -jar bias-autoscaler-0.1.jar
 ```
 
 ## Configuration
-If you wish to run BIAS Austoscaler outside of Google Cloud environment, i.e. on your local machine, you
+If you wish to run BIAS Austoscaler outside of Google Cloud environment, i.e., on your local machine, you
 need to set the required credentials locally using the [Google Cloud SDK](https://cloud.google.com/sdk/).
