@@ -2,8 +2,8 @@ package com.jaimedantas.controller;
 
 import com.google.api.services.compute.model.BackendService;
 import com.jaimedantas.model.InstanceScale;
-import com.jaimedantas.service.BackendServiceUsage;
-import com.jaimedantas.service.InstanceAllocation;
+import com.jaimedantas.autoscaler.control.BackendServiceUsage;
+import com.jaimedantas.autoscaler.control.InstanceAllocation;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;

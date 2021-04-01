@@ -1,4 +1,4 @@
-package com.jaimedantas.configuration;
+package com.jaimedantas.configuration.authentication;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;

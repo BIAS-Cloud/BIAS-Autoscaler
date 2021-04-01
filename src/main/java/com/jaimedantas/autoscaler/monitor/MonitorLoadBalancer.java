@@ -1,4 +1,4 @@
-package com.jaimedantas.service;
+package com.jaimedantas.autoscaler.monitor;
 
 import com.google.cloud.monitoring.v3.MetricServiceClient;
 import com.google.monitoring.v3.Aggregation;
@@ -7,7 +7,7 @@ import com.google.monitoring.v3.ProjectName;
 import com.google.monitoring.v3.TimeInterval;
 import com.google.protobuf.Duration;
 import com.google.protobuf.util.Timestamps;
-import com.jaimedantas.configuration.AutoscalerConfiguration;
+import com.jaimedantas.configuration.property.AutoscalerConfiguration;
 import io.micronaut.scheduling.annotation.Scheduled;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -22,10 +22,10 @@ public class MonitorLoadBalancer {
     @Inject
     AutoscalerConfiguration autoscalerConfiguration;
 
-    private static final Logger logger = LoggerFactory.getLogger(MonitorInstances.class);
+    private static final Logger logger = LoggerFactory.getLogger(MonitorLoadBalancer.class);
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "2m")
+    @Scheduled(fixedDelay = "${monitor.loadBalancerInterval}")
     void executeEveryTen() {
 
         logger.info("Running the scheduler for Load Balancer metrics");

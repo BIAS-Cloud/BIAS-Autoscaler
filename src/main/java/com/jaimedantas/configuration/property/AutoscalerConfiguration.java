@@ -1,4 +1,4 @@
-package com.jaimedantas.configuration;
+package com.jaimedantas.configuration.property;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import io.micronaut.context.annotation.Value;
