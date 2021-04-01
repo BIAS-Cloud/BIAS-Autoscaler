@@ -14,10 +14,10 @@ public class ScalingConfiguration {
     String maximumBurstableIntances;
     String maximumInstances;
     String cpuUtilizationBurstable;
-    String probabilityQueueing;
+    Double probabilityQueueing;
     String requestsSamples;
     String cpuSamples;
-    String autoscalerInterval;
+    String autoscalerControlInterval;
     Double mu;
 
 }

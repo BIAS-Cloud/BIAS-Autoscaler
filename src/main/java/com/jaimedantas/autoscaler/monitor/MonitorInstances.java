@@ -27,7 +27,7 @@ public class MonitorInstances {
     private static final Logger logger = LoggerFactory.getLogger(MonitorInstances.class);
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "${monitor.cpuInstancesInterval}")
+    @Scheduled(fixedDelay = "${monitor.cpu-instances-interval}")
     void executeEveryTen() {
 
         logger.info("Running the scheduler for CPU metrics");

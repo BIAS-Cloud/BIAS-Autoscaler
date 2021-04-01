@@ -25,7 +25,7 @@ public class MonitorLoadBalancer {
     private static final Logger logger = LoggerFactory.getLogger(MonitorLoadBalancer.class);
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "${monitor.loadBalancerInterval}")
+    @Scheduled(fixedDelay = "${monitor.load-balancer-interval}")
     void executeEveryTen() {
 
         logger.info("Running the scheduler for Load Balancer metrics");

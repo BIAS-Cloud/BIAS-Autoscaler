@@ -23,7 +23,7 @@ public class Autoscaler {
     Resource resource;
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "${scaling.autoscalerInterval}")
+    @Scheduled(fixedDelay = "${scaling.autoscaler-control-interval}")
     void executeEveryTen() {
 
         logger.info("Running the scheduler for Autoscaler");

@@ -55,7 +55,7 @@ scaling:
   requests-samples: 3
   cpu-samples: 3
   autoscaler-control-interval: 2m
-  mu-value: 200 # used for the SR Rule where R = arrival/mu
+  mu: 200 # used for the SR Rule where R = arrival/mu
 
 
 
