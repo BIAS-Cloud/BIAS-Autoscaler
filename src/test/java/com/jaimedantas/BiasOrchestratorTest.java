@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import javax.inject.Inject;
 
 @MicronautTest
-class BiasAutoscalerTest {
+class BiasOrchestratorTest {
 
     @Inject
     EmbeddedApplication<?> application;

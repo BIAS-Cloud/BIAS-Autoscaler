@@ -42,10 +42,6 @@ autoscaler:
   monitoring-group-burstable: 8600852950379919879
   machine-image-burstable: microservice-image-burstable
 
-monitor:
-  load-balancer-interval: 2m
-  cpu-instances-interval: 2m
-
 scaling:
   maximum-regular-instances: 8
   maximum-burstable-intances: 8
@@ -54,7 +50,7 @@ scaling:
   probability-queueing: 0.1 # fixed for now
   requests-samples: 3
   cpu-samples: 3
-  autoscaler-control-interval: 2m
+  autoscaler-decision-interval: 2m
   mu: 200 # used for the SR Rule where R = arrival/mu
 
 

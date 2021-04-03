@@ -9,6 +9,9 @@ import com.google.monitoring.v3.TimeInterval;
 import com.google.protobuf.Duration;
 import com.google.protobuf.util.Timestamps;
 import com.jaimedantas.configuration.property.AutoscalerConfiguration;
+import com.jaimedantas.enums.InstanceType;
+import com.jaimedantas.model.ArrivalRate;
+import com.jaimedantas.model.InstanceCpuUtilization;
 import io.micronaut.scheduling.annotation.Scheduled;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
@@ -16,6 +19,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Singleton
@@ -27,28 +32,21 @@ public class MonitorInstances {
     private static final Logger logger = LoggerFactory.getLogger(MonitorInstances.class);
 
     @SneakyThrows
-    @Scheduled(fixedDelay = "${monitor.cpu-instances-interval}")
-    void executeEveryTen() {
+    public List<InstanceCpuUtilization> fetchCpuInstances() {
 
-        logger.info("Running the scheduler for CPU metrics");
+        logger.info("Getting for CPU metrics");
 
-        // Initialize client that will be used to send requests. This client only needs to be created
-        // once, and can be reused for multiple requests.
+        List<InstanceCpuUtilization> instanceCpuUtilizationList = new ArrayList<>();
+
         try (MetricServiceClient metricServiceClient = MetricServiceClient.create()) {
             ProjectName projectName = ProjectName.of(autoscalerConfiguration.getProject());
 
-            // Restrict time to last 20 minutes
+            // Restrict time to last 6 minutes
             long startMillis = System.currentTimeMillis() - ((60 * 6) * 1000);
             TimeInterval interval =
                     TimeInterval.newBuilder()
                             .setStartTime(Timestamps.fromMillis(startMillis))
                             .setEndTime(Timestamps.fromMillis(System.currentTimeMillis()-1000))
-                            .build();
-
-            Aggregation aggregation =
-                    Aggregation.newBuilder()
-                            .setAlignmentPeriod(Duration.newBuilder().setSeconds(181).build())
-                            .setPerSeriesAligner(Aggregation.Aligner.ALIGN_MEAN)
                             .build();
 
             // Prepares the list time series request
@@ -57,7 +55,6 @@ public class MonitorInstances {
                             .setName(projectName.toString())
                             .setFilter("metric.type = \"compute.googleapis.com/instance/cpu/utilization\"")
                             .setInterval(interval)
-//                            .setAggregation(aggregation)
                             .build();
 
             // Send the request to list the time series
@@ -67,12 +64,29 @@ public class MonitorInstances {
             // Process the response
             response.iterateAll().forEach(
                     timeSeries -> {
-                        logger.info("Instance name: {}", timeSeries.getMetric().getLabelsMap().get("instance_name"));
+                        String instanceName = timeSeries.getMetric().getLabelsMap().get("instance_name");
+                        logger.info("Instance name: {}", instanceName);
+                        InstanceType instanceType = null;
+                        if(instanceName.contains(InstanceType.ONDEMAND.label.toLowerCase())){
+                            instanceType = InstanceType.ONDEMAND;
+                        } else if (instanceName.contains(InstanceType.BURSTABLE.label.toLowerCase())){
+                            instanceType = InstanceType.BURSTABLE;
+                        }
+                        InstanceType finalInstanceType = instanceType;
                         timeSeries.getPointsList().forEach(
-                                point -> logger.info("CPU: {}%", point.getValue().getDoubleValue()));
+                                point -> {
+                                    logger.info("CPU: {}%", point.getValue().getDoubleValue());
+                                    InstanceCpuUtilization instanceCpuUtilization = new InstanceCpuUtilization();
+                                    instanceCpuUtilization.setInstanceType(finalInstanceType);
+                                    instanceCpuUtilization.setValue(point.getValue().getDoubleValue());
+                                    instanceCpuUtilization.setTimestamp(point.getInterval().getEndTime());
+
+                                    instanceCpuUtilizationList.add(instanceCpuUtilization);
+                                });
                     }
             );
         }
+        return instanceCpuUtilizationList;
 
     }
 
