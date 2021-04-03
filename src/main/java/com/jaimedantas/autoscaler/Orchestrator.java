@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 public class Orchestrator {
@@ -48,6 +49,13 @@ public class Orchestrator {
 
         long lastRequest = getArrivalOndemand(arrivalRateList);
 
+        logger.info("Arrival Rate Ondemand: {} req/s", lastRequest);
+
+        double cpuBurstable = getCpuOndemand(instanceCpuUtilizationList);
+
+        logger.info("CPU of Burstable: {} %", cpuBurstable*100);
+
+
         squareRootStaffing.calculateNumberOfServers(r);
 
     }
@@ -70,12 +78,51 @@ public class Orchestrator {
 
     }
 
-//    double getCpuBurstable(List<InstanceCpuUtilization> cpuList){
-//        if (cpuList != null) {
-//            cpuList.get(0).get
-//        }
-//
-//        return 0.0;
-//
-//    }
+    double getCpuOndemand(List<InstanceCpuUtilization> cpuList){
+        List<Double> cpuValuesList = new ArrayList<>();
+        List<String> instancesNames = new ArrayList<>();
+        if (!cpuList.isEmpty()) {
+
+            //gets names of the instances
+            cpuList.forEach( e -> {
+                if (e.getInstanceName().contains(InstanceType.BURSTABLE.label.toLowerCase())){
+                    instancesNames.add(e.getInstanceName());
+                }
+            });
+            List<String> instancesNamesNoDuplicated = instancesNames.stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            //gets the last cpu value
+            if (!instancesNamesNoDuplicated.isEmpty()){
+                instancesNamesNoDuplicated.forEach( n -> {
+                    List<Double> valuesListAux = new ArrayList<>();
+                    cpuList.forEach( i -> {
+                        if (i.getInstanceName().equals(n)){
+                            valuesListAux.add(i.getValue());
+                        }
+                    });
+                    cpuValuesList.add(valuesListAux.get(valuesListAux.size()-1));
+                });
+            }
+
+            return cpuValuesList.stream()
+                    .mapToDouble(Double::doubleValue)
+                    .average()
+                    .orElse(0.0);
+        } else {
+            return 0.0;
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -2,17 +2,13 @@ package com.jaimedantas.autoscaler.monitor;
 
 
 import com.google.cloud.monitoring.v3.MetricServiceClient;
-import com.google.monitoring.v3.Aggregation;
 import com.google.monitoring.v3.ListTimeSeriesRequest;
 import com.google.monitoring.v3.ProjectName;
 import com.google.monitoring.v3.TimeInterval;
-import com.google.protobuf.Duration;
 import com.google.protobuf.util.Timestamps;
 import com.jaimedantas.configuration.property.AutoscalerConfiguration;
 import com.jaimedantas.enums.InstanceType;
-import com.jaimedantas.model.ArrivalRate;
 import com.jaimedantas.model.InstanceCpuUtilization;
-import io.micronaut.scheduling.annotation.Scheduled;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,8 +71,9 @@ public class MonitorInstances {
                         InstanceType finalInstanceType = instanceType;
                         timeSeries.getPointsList().forEach(
                                 point -> {
-                                    logger.info("CPU: {}%", point.getValue().getDoubleValue());
+                                    logger.info("CPU: {}%", point.getValue().getDoubleValue()*100);
                                     InstanceCpuUtilization instanceCpuUtilization = new InstanceCpuUtilization();
+                                    instanceCpuUtilization.setInstanceName(instanceName);
                                     instanceCpuUtilization.setInstanceType(finalInstanceType);
                                     instanceCpuUtilization.setValue(point.getValue().getDoubleValue());
                                     instanceCpuUtilization.setTimestamp(point.getInterval().getEndTime());
