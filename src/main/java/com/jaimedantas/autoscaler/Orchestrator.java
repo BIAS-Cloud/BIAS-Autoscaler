@@ -1,9 +1,15 @@
 package com.jaimedantas.autoscaler;
 
+import com.jaimedantas.autoscaler.control.BackendServiceUsage;
+import com.jaimedantas.autoscaler.control.InstanceAllocation;
 import com.jaimedantas.autoscaler.monitor.MonitorInstances;
 import com.jaimedantas.autoscaler.monitor.MonitorLoadBalancer;
+import com.jaimedantas.autoscaler.monitor.command.MetricsCommand;
 import com.jaimedantas.autoscaler.scaling.Resource;
+import com.jaimedantas.autoscaler.scaling.ResourceValidator;
 import com.jaimedantas.autoscaler.scaling.SquareRootStaffing;
+import com.jaimedantas.autoscaler.scaling.state.ScalingState;
+import com.jaimedantas.configuration.autoscaler.ScalingConfiguration;
 import com.jaimedantas.enums.InstanceType;
 import com.jaimedantas.model.ArrivalRate;
 import com.jaimedantas.model.InstanceCpuUtilization;
@@ -14,9 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Singleton
 public class Orchestrator {
@@ -26,11 +31,24 @@ public class Orchestrator {
     @Inject
     SquareRootStaffing squareRootStaffing;
 
+
+    @Inject
+    ScalingConfiguration scalingConfiguration;
+
     @Inject
     MonitorLoadBalancer monitorLoadBalancer;
 
     @Inject
     MonitorInstances monitorInstances;
+
+    @Inject
+    ResourceValidator resourceValidator;
+
+    @Inject
+    BackendServiceUsage backendServiceUsage;
+
+    @Inject
+    InstanceAllocation instanceAllocation;
 
     @Inject
     Resource resource;
@@ -41,79 +59,104 @@ public class Orchestrator {
 
         logger.info("Running the scheduler for the Autoscaler");
 
+
+        // monitoring
         List<ArrivalRate> arrivalRateList = monitorLoadBalancer.fetchArrivalRate();
-
         List<InstanceCpuUtilization> instanceCpuUtilizationList = monitorInstances.fetchCpuInstances();
+        long lastArrivalRate = MetricsCommand.getArrivalOndemand(arrivalRateList);
+        double cpuBurstable = MetricsCommand.getCpuBurstable(instanceCpuUtilizationList);
+        double cpuOndemand = MetricsCommand.getCpuOndemand(instanceCpuUtilizationList);
 
-        int r = resource.calculateR(100);
+        logger.info("Arrival Rate Ondemand: {} req/min", lastArrivalRate);
+        logger.info("CPU of Burstable: {}%", String.format("%.2f",cpuBurstable * 100));
+        logger.info("CPU of Ondemand: {}%",  String.format("%.2f",cpuOndemand * 100));
 
-        long lastRequest = getArrivalOndemand(arrivalRateList);
+        // validation
+        int r = resource.calculateR(lastArrivalRate);
+        int regularInstances = resourceValidator.validateRegularInstances(squareRootStaffing.calculateNumberOfRegularInstances(r));
+        int burstableInstances = resourceValidator.validateBurstableInstances(squareRootStaffing.calculateNumberOfBurstableInstances(r));
+        HashMap<InstanceType, Integer> NumberOfInstanceshashMap = resourceValidator.validateResources(regularInstances, burstableInstances);
+        regularInstances = NumberOfInstanceshashMap.get(InstanceType.ONDEMAND);
+        burstableInstances = NumberOfInstanceshashMap.get(InstanceType.BURSTABLE);
 
-        logger.info("Arrival Rate Ondemand: {} req/s", lastRequest);
+        logger.info("Predicted REGULAR = {}", regularInstances);
+        logger.info("Predicted BURSTABLE = {}", burstableInstances);
 
-        double cpuBurstable = getCpuOndemand(instanceCpuUtilizationList);
+        // scaling
+        //ScalingState scalingState = new ScalingState();
+        HashMap<InstanceType, Integer> currentInstances = MetricsCommand.getCurrentNumberInstances(instanceCpuUtilizationList);
+        int currentRegularInstances = Math.max(scalingConfiguration.getCurrentRegularInstances(), currentInstances.get(InstanceType.ONDEMAND));
+        int currentBurstableInstances = Math.max(scalingConfiguration.getCurrentBurstableInstances(), currentInstances.get(InstanceType.BURSTABLE));
 
-        logger.info("CPU of Burstable: {} %", cpuBurstable*100);
+        logger.info("Current REGULAR = {}", currentRegularInstances);
+        logger.info("Current BURSTABLE = {}", currentBurstableInstances);
 
-
-        squareRootStaffing.calculateNumberOfServers(r);
-
-    }
-
-    long getArrivalOndemand(List<ArrivalRate> cpuList){
-        List<ArrivalRate> ondemandList = new ArrayList<>();
-        if (cpuList != null) {
-            cpuList.forEach(e -> {
-                if (e.getInstanceType().equals(InstanceType.ONDEMAND)){
-                    ondemandList.add(e);
+        if (regularInstances > currentRegularInstances){
+            if (ScalingState.getLastScaleOutRegular() == 0){
+                //first time scaling
+                logger.warn("Scaling out REGULAR instance");
+                ScalingState.setLastScaleOutRegular(System.currentTimeMillis());
+                instanceAllocation.addInstanceToGroup(InstanceType.ONDEMAND);
+            } else {
+                if(System.currentTimeMillis() > ScalingState.getLastScaleOutRegular() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000){
+                    logger.warn("Scaling out REGULAR instance");
+                    ScalingState.setLastScaleOutRegular(System.currentTimeMillis());
+                    instanceAllocation.addInstanceToGroup(InstanceType.ONDEMAND);
+                } else {
+                    logger.info("Waiting the index of new REGULAR instance");
                 }
-            });
-        }
-
-        if (!ondemandList.isEmpty()){
-            return ondemandList.get(0).getValue();
-        } else{
-            return 0;
-        }
-
-    }
-
-    double getCpuOndemand(List<InstanceCpuUtilization> cpuList){
-        List<Double> cpuValuesList = new ArrayList<>();
-        List<String> instancesNames = new ArrayList<>();
-        if (!cpuList.isEmpty()) {
-
-            //gets names of the instances
-            cpuList.forEach( e -> {
-                if (e.getInstanceName().contains(InstanceType.BURSTABLE.label.toLowerCase())){
-                    instancesNames.add(e.getInstanceName());
+            }
+        } else if (regularInstances < currentRegularInstances){
+            if (ScalingState.getLastScaleInRegular() == 0) {
+                logger.warn("Scaling in REGULAR instance");
+                ScalingState.setLastScaleInRegular(System.currentTimeMillis());
+                instanceAllocation.removeInstanceFromGroup(InstanceType.ONDEMAND);
+            } else {
+                if(System.currentTimeMillis() > ScalingState.getLastScaleInRegular() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
+                    logger.warn("Scaling in REGULAR instance");
+                    ScalingState.setLastScaleInRegular(System.currentTimeMillis());
+                    instanceAllocation.removeInstanceFromGroup(InstanceType.ONDEMAND);
                 }
-            });
-            List<String> instancesNamesNoDuplicated = instancesNames.stream()
-                    .distinct()
-                    .collect(Collectors.toList());
-
-            //gets the last cpu value
-            if (!instancesNamesNoDuplicated.isEmpty()){
-                instancesNamesNoDuplicated.forEach( n -> {
-                    List<Double> valuesListAux = new ArrayList<>();
-                    cpuList.forEach( i -> {
-                        if (i.getInstanceName().equals(n)){
-                            valuesListAux.add(i.getValue());
-                        }
-                    });
-                    cpuValuesList.add(valuesListAux.get(valuesListAux.size()-1));
-                });
+                else {
+                    logger.info("Waiting the removal of old REGULAR instance");
+                }
+            }
+        }
+        if (burstableInstances > currentBurstableInstances){
+            if (ScalingState.getLastScaleOutBurstable() == 0) {
+                logger.warn("Scaling out BURSTABLE instance");
+                ScalingState.setLastScaleOutBurstable(System.currentTimeMillis());
+                instanceAllocation.addInstanceToGroup(InstanceType.BURSTABLE);
+            } else {
+                if(System.currentTimeMillis() > ScalingState.getLastScaleOutBurstable() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
+                    logger.warn("Scaling out BURSTABLE instance");
+                    ScalingState.setLastScaleOutBurstable(System.currentTimeMillis());
+                    instanceAllocation.addInstanceToGroup(InstanceType.BURSTABLE);
+                }
+                else {
+                    logger.info("Waiting the index of new BURSTABLE instance");
+                }
+            }
+        } else if (burstableInstances < currentBurstableInstances){
+            if (ScalingState.getLastScaleInBurstable() == 0) {
+                logger.warn("Scaling in BURSTABLE instance");
+                ScalingState.setLastScaleInBurstable(System.currentTimeMillis());
+                instanceAllocation.removeInstanceFromGroup(InstanceType.BURSTABLE);
+            } else {
+                if(System.currentTimeMillis() > ScalingState.getLastScaleInBurstable() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
+                    logger.warn("Scaling in BURSTABLE instance");
+                    ScalingState.setLastScaleInBurstable(System.currentTimeMillis());
+                    instanceAllocation.removeInstanceFromGroup(InstanceType.BURSTABLE);
+                }
+                else {
+                    logger.info("Waiting the removal of old REGULAR instance");
+                }
             }
 
-            return cpuValuesList.stream()
-                    .mapToDouble(Double::doubleValue)
-                    .average()
-                    .orElse(0.0);
-        } else {
-            return 0.0;
         }
+
     }
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.jaimedantas;
 
+import com.jaimedantas.autoscaler.scaling.state.ScalingState;
 import io.micronaut.runtime.Micronaut;
 import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.info.*;
@@ -16,6 +17,7 @@ import io.swagger.v3.oas.annotations.info.*;
 public class Application {
 
     public static void main(String[] args) {
+        ScalingState scalingState = new ScalingState();
         Micronaut.run(Application.class, args);
     }
 }

@@ -5,7 +5,7 @@ import com.google.monitoring.v3.ListTimeSeriesRequest;
 import com.google.monitoring.v3.ProjectName;
 import com.google.monitoring.v3.TimeInterval;
 import com.google.protobuf.util.Timestamps;
-import com.jaimedantas.configuration.property.AutoscalerConfiguration;
+import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.enums.InstanceType;
 import com.jaimedantas.model.ArrivalRate;
 import lombok.SneakyThrows;
@@ -26,15 +26,15 @@ public class MonitorLoadBalancer {
     @SneakyThrows
     public List<ArrivalRate> fetchArrivalRate() {
 
-        logger.info("Getting Load Balancer metrics");
+        logger.debug("Getting Load Balancer metrics");
 
         List<ArrivalRate> arrivalRates = new ArrayList<>();
 
         try (MetricServiceClient metricServiceClient = MetricServiceClient.create()) {
             ProjectName projectName = ProjectName.of(autoscalerConfiguration.getProject());
 
-            // Restrict time to last 6 minutes
-            long startMillis = System.currentTimeMillis() - ((60 * 6) * 1000);
+            // Restrict time to last 4 minutes
+            long startMillis = System.currentTimeMillis() - ((60 * 4) * 1000) - 1000;
             TimeInterval interval =
                     TimeInterval.newBuilder()
                             .setStartTime(Timestamps.fromMillis(startMillis))
@@ -58,7 +58,7 @@ public class MonitorLoadBalancer {
             response.iterateAll().forEach(
                     timeSeries -> {
                         String backendName = timeSeries.getResource().getLabelsMap().get("backend_name");
-                        logger.info("Instance Group: {}", backendName);
+                        logger.debug("Instance Group: {}", backendName);
                         InstanceType instanceType = null;
                         if(backendName.contains(InstanceType.ONDEMAND.label.toLowerCase())){
                             instanceType = InstanceType.ONDEMAND;
@@ -68,7 +68,7 @@ public class MonitorLoadBalancer {
                         InstanceType finalInstanceType = instanceType;
                         timeSeries.getPointsList().forEach(
                                 point -> {
-                                    logger.info("Requests: {}", point.getValue().getInt64Value());
+                                    logger.debug("Requests: {}", point.getValue().getInt64Value());
                                     ArrivalRate arrivalRate = new ArrivalRate();
                                     arrivalRate.setInstanceType(finalInstanceType);
                                     arrivalRate.setValue(point.getValue().getInt64Value());

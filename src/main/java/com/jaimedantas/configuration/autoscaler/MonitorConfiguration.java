@@ -1,4 +1,4 @@
-package com.jaimedantas.configuration.property;
+package com.jaimedantas.configuration.autoscaler;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import lombok.Getter;

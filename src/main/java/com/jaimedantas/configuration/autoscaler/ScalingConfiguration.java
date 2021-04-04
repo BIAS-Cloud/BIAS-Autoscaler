@@ -1,4 +1,4 @@
-package com.jaimedantas.configuration.property;
+package com.jaimedantas.configuration.autoscaler;
 
 import io.micronaut.context.annotation.ConfigurationProperties;
 import lombok.Getter;
@@ -10,10 +10,15 @@ import lombok.Setter;
 public class ScalingConfiguration {
 
     String scaling;
-    String maximumRegularInstances;
-    String maximumBurstableIntances;
-    String maximumInstances;
-    String cpuUtilizationBurstable;
+    int autoscalerScaleWaitingTime;
+    int maximumRegularInstances;
+    int currentRegularInstances;
+    int currentBurstableInstances;
+    int maximumBurstableIntances;
+    int minimumBurstableInstances;
+    int minimumRegularInstances;
+    int maximumInstances;
+    Double cpuUtilizationBurstable;
     Double probabilityQueueing;
     String requestsSamples;
     String cpuSamples;

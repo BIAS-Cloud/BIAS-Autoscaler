@@ -36,22 +36,27 @@ autoscaler:
   machine-type-ondemand: n1-standard-1
   instance-group-ondemand: instance-group-ondemand
   monitoring-group-ondemand: 1494871473937024979
-  machine-image-ondemand: microservice-image-ondemand
+  machine-image-ondemand: microservice-image-ondemand-r
   machine-type-burstable: g1-small
   instance-group-burstable: instance-group-burstable
   monitoring-group-burstable: 8600852950379919879
-  machine-image-burstable: microservice-image-burstable
+  machine-image-burstable: microservice-image-burstable-b
 
 scaling:
   maximum-regular-instances: 8
   maximum-burstable-intances: 8
   maximum-instances: 8
-  cpu-utilization-burstable: 0.4
+  minimum-regular-instances: 1
+  minimum-burstable-instances: 1
+  current-regular-instances: 1
+  current-burstable-instances: 1
+  cpu-utilization-burstable: 0.4 # from 0 to 1
   probability-queueing: 0.1 # fixed for now
   requests-samples: 3
   cpu-samples: 3
-  autoscaler-decision-interval: 2m
-  mu: 200 # used for the SR Rule where R = arrival/mu
+  autoscaler-decision-interval: 61s
+  autoscaler-scale-waiting-time: 240 # time by witch the autoscale will wait to the next scale out/in in seconds
+  mu: 600 # mu is the capacity in minuted for the SR Rule where R = arrival/mu
 
 
 

@@ -1,6 +1,6 @@
 package com.jaimedantas.autoscaler.scaling;
 
-import com.jaimedantas.configuration.property.ScalingConfiguration;
+import com.jaimedantas.configuration.autoscaler.ScalingConfiguration;
 
 import javax.inject.Inject;
 
