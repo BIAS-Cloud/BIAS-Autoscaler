@@ -41,6 +41,7 @@ autoscaler:
   instance-group-burstable: instance-group-burstable
   monitoring-group-burstable: 8600852950379919879
   machine-image-burstable: microservice-image-burstable-b
+  backend-service: wiki-service
 
 scaling:
   maximum-regular-instances: 8
@@ -54,8 +55,8 @@ scaling:
   probability-queueing: 0.1 # fixed for now
   requests-samples: 3
   cpu-samples: 3
-  autoscaler-decision-interval: 61s
-  autoscaler-scale-waiting-time: 240 # time by witch the autoscale will wait to the next scale out/in in seconds
+  autoscaler-decision-interval: 60s
+  autoscaler-scale-waiting-time: 90 # time by witch the autoscaler will wait to the next scale out/in in seconds
   mu: 600 # mu is the capacity in minuted for the SR Rule where R = arrival/mu
 
 

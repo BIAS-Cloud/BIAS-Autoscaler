@@ -19,5 +19,6 @@ public class AutoscalerConfiguration {
     String monitoringGroupBurstable;
     String machineImageOndemand;
     String machineImageBurstable;
+    String backendService;
 
 }

@@ -2,8 +2,8 @@ package com.jaimedantas.autoscaler.control;
 
 import com.google.api.services.compute.Compute;
 import com.google.api.services.compute.model.*;
-import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.configuration.authentication.GoogleCloudAuth;
+import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.enums.InstanceType;
 
 import javax.inject.Inject;

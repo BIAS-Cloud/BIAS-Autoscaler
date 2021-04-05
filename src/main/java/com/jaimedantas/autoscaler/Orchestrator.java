@@ -1,7 +1,7 @@
 package com.jaimedantas.autoscaler;
 
 import com.jaimedantas.autoscaler.control.BackendServiceUsage;
-import com.jaimedantas.autoscaler.control.InstanceAllocation;
+import com.jaimedantas.autoscaler.control.ScalingControl;
 import com.jaimedantas.autoscaler.monitor.MonitorInstances;
 import com.jaimedantas.autoscaler.monitor.MonitorLoadBalancer;
 import com.jaimedantas.autoscaler.monitor.command.MetricsCommand;
@@ -9,6 +9,7 @@ import com.jaimedantas.autoscaler.scaling.Resource;
 import com.jaimedantas.autoscaler.scaling.ResourceValidator;
 import com.jaimedantas.autoscaler.scaling.SquareRootStaffing;
 import com.jaimedantas.autoscaler.scaling.state.ScalingState;
+import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.configuration.autoscaler.ScalingConfiguration;
 import com.jaimedantas.enums.InstanceType;
 import com.jaimedantas.model.ArrivalRate;
@@ -31,9 +32,11 @@ public class Orchestrator {
     @Inject
     SquareRootStaffing squareRootStaffing;
 
-
     @Inject
     ScalingConfiguration scalingConfiguration;
+
+    @Inject
+    AutoscalerConfiguration autoscalerConfiguration;
 
     @Inject
     MonitorLoadBalancer monitorLoadBalancer;
@@ -48,7 +51,7 @@ public class Orchestrator {
     BackendServiceUsage backendServiceUsage;
 
     @Inject
-    InstanceAllocation instanceAllocation;
+    ScalingControl scalingControl;
 
     @Inject
     Resource resource;
@@ -59,13 +62,14 @@ public class Orchestrator {
 
         logger.info("Running the scheduler for the Autoscaler");
 
-
         // monitoring
         List<ArrivalRate> arrivalRateList = monitorLoadBalancer.fetchArrivalRate();
         List<InstanceCpuUtilization> instanceCpuUtilizationList = monitorInstances.fetchCpuInstances();
         long lastArrivalRate = MetricsCommand.getArrivalOndemand(arrivalRateList);
         double cpuBurstable = MetricsCommand.getCpuBurstable(instanceCpuUtilizationList);
         double cpuOndemand = MetricsCommand.getCpuOndemand(instanceCpuUtilizationList);
+        // weight of burstable
+        ScalingState.setCurrentBurstableWeight(backendServiceUsage.getBurstableWeight());
 
         logger.info("Arrival Rate Ondemand: {} req/min", lastArrivalRate);
         logger.info("CPU of Burstable: {}%", String.format("%.2f",cpuBurstable * 100));
@@ -83,76 +87,25 @@ public class Orchestrator {
         logger.info("Predicted BURSTABLE = {}", burstableInstances);
 
         // scaling
-        //ScalingState scalingState = new ScalingState();
         HashMap<InstanceType, Integer> currentInstances = MetricsCommand.getCurrentNumberInstances(instanceCpuUtilizationList);
-        int currentRegularInstances = Math.max(scalingConfiguration.getCurrentRegularInstances(), currentInstances.get(InstanceType.ONDEMAND));
-        int currentBurstableInstances = Math.max(scalingConfiguration.getCurrentBurstableInstances(), currentInstances.get(InstanceType.BURSTABLE));
+        int currentRegularInstances = Math.max(scalingConfiguration.getCurrentRegularInstances(), monitorInstances.getNumberOfInstances(InstanceType.ONDEMAND));
+        int currentBurstableInstances = Math.max(scalingConfiguration.getCurrentBurstableInstances(), monitorInstances.getNumberOfInstances(InstanceType.BURSTABLE));
 
         logger.info("Current REGULAR = {}", currentRegularInstances);
         logger.info("Current BURSTABLE = {}", currentBurstableInstances);
 
-        if (regularInstances > currentRegularInstances){
-            if (ScalingState.getLastScaleOutRegular() == 0){
-                //first time scaling
-                logger.warn("Scaling out REGULAR instance");
-                ScalingState.setLastScaleOutRegular(System.currentTimeMillis());
-                instanceAllocation.addInstanceToGroup(InstanceType.ONDEMAND);
-            } else {
-                if(System.currentTimeMillis() > ScalingState.getLastScaleOutRegular() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000){
-                    logger.warn("Scaling out REGULAR instance");
-                    ScalingState.setLastScaleOutRegular(System.currentTimeMillis());
-                    instanceAllocation.addInstanceToGroup(InstanceType.ONDEMAND);
-                } else {
-                    logger.info("Waiting the index of new REGULAR instance");
-                }
-            }
-        } else if (regularInstances < currentRegularInstances){
-            if (ScalingState.getLastScaleInRegular() == 0) {
-                logger.warn("Scaling in REGULAR instance");
-                ScalingState.setLastScaleInRegular(System.currentTimeMillis());
-                instanceAllocation.removeInstanceFromGroup(InstanceType.ONDEMAND);
-            } else {
-                if(System.currentTimeMillis() > ScalingState.getLastScaleInRegular() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
-                    logger.warn("Scaling in REGULAR instance");
-                    ScalingState.setLastScaleInRegular(System.currentTimeMillis());
-                    instanceAllocation.removeInstanceFromGroup(InstanceType.ONDEMAND);
-                }
-                else {
-                    logger.info("Waiting the removal of old REGULAR instance");
-                }
-            }
-        }
-        if (burstableInstances > currentBurstableInstances){
-            if (ScalingState.getLastScaleOutBurstable() == 0) {
-                logger.warn("Scaling out BURSTABLE instance");
-                ScalingState.setLastScaleOutBurstable(System.currentTimeMillis());
-                instanceAllocation.addInstanceToGroup(InstanceType.BURSTABLE);
-            } else {
-                if(System.currentTimeMillis() > ScalingState.getLastScaleOutBurstable() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
-                    logger.warn("Scaling out BURSTABLE instance");
-                    ScalingState.setLastScaleOutBurstable(System.currentTimeMillis());
-                    instanceAllocation.addInstanceToGroup(InstanceType.BURSTABLE);
-                }
-                else {
-                    logger.info("Waiting the index of new BURSTABLE instance");
-                }
-            }
-        } else if (burstableInstances < currentBurstableInstances){
-            if (ScalingState.getLastScaleInBurstable() == 0) {
-                logger.warn("Scaling in BURSTABLE instance");
-                ScalingState.setLastScaleInBurstable(System.currentTimeMillis());
-                instanceAllocation.removeInstanceFromGroup(InstanceType.BURSTABLE);
-            } else {
-                if(System.currentTimeMillis() > ScalingState.getLastScaleInBurstable() + scalingConfiguration.getAutoscalerScaleWaitingTime()*1000) {
-                    logger.warn("Scaling in BURSTABLE instance");
-                    ScalingState.setLastScaleInBurstable(System.currentTimeMillis());
-                    instanceAllocation.removeInstanceFromGroup(InstanceType.BURSTABLE);
-                }
-                else {
-                    logger.info("Waiting the removal of old REGULAR instance");
-                }
-            }
+        scalingControl.performScaling(regularInstances, currentRegularInstances, burstableInstances, currentBurstableInstances);
 
+
+        // weight of burstable
+        if (r > (currentBurstableInstances + currentRegularInstances)) {
+            if (ScalingState.getCurrentBurstableWeight() != 1.0) {
+                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), 1.0f);
+            }
+        } else {
+            if (ScalingState.getCurrentBurstableWeight() != scalingConfiguration.getCpuUtilizationBurstable().floatValue()) {
+                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), scalingConfiguration.getCpuUtilizationBurstable().floatValue());
+            }
         }
 
     }

@@ -6,13 +6,22 @@ public class ScalingState {
     public static long lastScaleOutBurstable;
     public static long lastScaleInRegular;
     public static long lastScaleOutRegular;
-
+    public static double currentBurstableWeight;
 
     public ScalingState() {
         lastScaleInBurstable = 0;
         lastScaleOutBurstable = 0;
         lastScaleInRegular = 0;
         lastScaleOutRegular = 0;
+        currentBurstableWeight = 0.0;
+    }
+
+    public static double getCurrentBurstableWeight() {
+        return currentBurstableWeight;
+    }
+
+    public static void setCurrentBurstableWeight(double currentBurstableWeight) {
+        ScalingState.currentBurstableWeight = currentBurstableWeight;
     }
 
     public static long getLastScaleInBurstable() {
