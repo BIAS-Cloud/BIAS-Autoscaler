@@ -2,6 +2,7 @@ package com.jaimedantas.autoscaler.control;
 
 import com.jaimedantas.autoscaler.Orchestrator;
 import com.jaimedantas.autoscaler.scaling.state.ScalingState;
+import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.configuration.autoscaler.ScalingConfiguration;
 import com.jaimedantas.enums.InstanceType;
 import org.slf4j.Logger;
@@ -21,7 +22,25 @@ public class ScalingControl {
     @Inject
     InstanceAllocation instanceAllocation;
 
+    @Inject
+    BackendServiceUsage backendServiceUsage;
+
+    @Inject
+    AutoscalerConfiguration autoscalerConfiguration;
+
     public void performScaling(int regularInstances, int currentRegularInstances, int burstableInstances, int currentBurstableInstances) throws IOException, GeneralSecurityException {
+
+        // weight of burstable
+        if (regularInstances > currentRegularInstances) {
+            if (ScalingState.getCurrentBurstableWeight() != 1.0) {
+                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), 1.0f);
+            }
+        } else {
+            if (ScalingState.getCurrentBurstableWeight() != scalingConfiguration.getCpuUtilizationBurstable().floatValue()) {
+                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), scalingConfiguration.getCpuUtilizationBurstable().floatValue());
+            }
+        }
+
         if (regularInstances > currentRegularInstances){
             if (ScalingState.getLastScaleOutRegular() == 0){
                 //first time scaling

@@ -96,18 +96,6 @@ public class Orchestrator {
 
         scalingControl.performScaling(regularInstances, currentRegularInstances, burstableInstances, currentBurstableInstances);
 
-
-        // weight of burstable
-        if (r > (currentBurstableInstances + currentRegularInstances)) {
-            if (ScalingState.getCurrentBurstableWeight() != 1.0) {
-                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), 1.0f);
-            }
-        } else {
-            if (ScalingState.getCurrentBurstableWeight() != scalingConfiguration.getCpuUtilizationBurstable().floatValue()) {
-                backendServiceUsage.setBackendServicePolicy(autoscalerConfiguration.getInstanceGroupBurstable(), autoscalerConfiguration.getBackendService(), scalingConfiguration.getCpuUtilizationBurstable().floatValue());
-            }
-        }
-
     }
 
 }
