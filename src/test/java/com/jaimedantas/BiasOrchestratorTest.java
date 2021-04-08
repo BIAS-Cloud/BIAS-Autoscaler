@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
-@MicronautTest
+@MicronautTest(environments = "test")
 class BiasOrchestratorTest {
 
     @Inject

@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.HashMap;
 
 
-@MicronautTest(propertySources = "application.yml")
+@MicronautTest(propertySources = "application.yml", environments = "test")
 @Property(name = "scaling.maximumBurstableInstances", value = "1")
 class ResourceValidatorTest {
 

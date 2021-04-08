@@ -8,6 +8,7 @@ import com.jaimedantas.autoscaler.scaling.SquareRootStaffing;
 import com.jaimedantas.autoscaler.scaling.state.ScalingState;
 import com.jaimedantas.enums.InstanceType;
 import io.micronaut.context.annotation.Context;
+import io.micronaut.context.annotation.Requires;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,9 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 
 @Context
+@Requires(env = "prod")
 public class StartupScale {
+
     private static final Logger logger = LoggerFactory.getLogger(Orchestrator.class);
 
     @Inject
