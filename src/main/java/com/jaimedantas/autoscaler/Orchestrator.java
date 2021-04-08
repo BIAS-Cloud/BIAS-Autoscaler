@@ -12,15 +12,17 @@ import com.jaimedantas.autoscaler.scaling.state.ScalingState;
 import com.jaimedantas.configuration.autoscaler.AutoscalerConfiguration;
 import com.jaimedantas.configuration.autoscaler.ScalingConfiguration;
 import com.jaimedantas.enums.InstanceType;
+import com.jaimedantas.exception.InvalidProbabilityQueueException;
 import com.jaimedantas.model.ArrivalRate;
 import com.jaimedantas.model.InstanceCpuUtilization;
 import io.micronaut.scheduling.annotation.Scheduled;
-import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,9 +58,8 @@ public class Orchestrator {
     @Inject
     Resource resource;
 
-    @SneakyThrows
-    @Scheduled(fixedDelay = "${scaling.autoscaler-decision-interval}")
-    void executeAutoscaler() {
+    @Scheduled(fixedDelay = "${scaling.autoscaler-decision-interval}", initialDelay = "10s")
+    void executeAutoscaler() throws IOException, GeneralSecurityException, InvalidProbabilityQueueException {
 
         logger.info("Running the scheduler for the Autoscaler");
 
@@ -87,7 +88,6 @@ public class Orchestrator {
         logger.info("Predicted BURSTABLE = {}", burstableInstances);
 
         // scaling
-        HashMap<InstanceType, Integer> currentInstances = MetricsCommand.getCurrentNumberInstances(instanceCpuUtilizationList);
         int currentRegularInstances = Math.max(scalingConfiguration.getCurrentRegularInstances(), monitorInstances.getNumberOfInstances(InstanceType.ONDEMAND));
         int currentBurstableInstances = Math.max(scalingConfiguration.getCurrentBurstableInstances(), monitorInstances.getNumberOfInstances(InstanceType.BURSTABLE));
 
