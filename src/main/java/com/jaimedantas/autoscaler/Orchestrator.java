@@ -18,11 +18,15 @@ import com.jaimedantas.model.InstanceCpuUtilization;
 import io.micronaut.scheduling.annotation.Scheduled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.opencsv.CSVWriter;
+
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -96,6 +100,23 @@ public class Orchestrator {
 
         scalingControl.performScaling(regularInstances, currentRegularInstances, burstableInstances, currentBurstableInstances);
 
+        // writes data in CVS
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String[] entries = {
+                String.valueOf(timestamp.getTime()),
+                String.valueOf(cpuBurstable),
+                String.valueOf(cpuOndemand),
+                String.valueOf(ScalingState.getCurrentBurstableWeight()),
+                String.valueOf(lastArrivalRate),
+                String.valueOf(burstableInstances),
+                String.valueOf(regularInstances),
+                String.valueOf(currentBurstableInstances),
+                String.valueOf(currentRegularInstances)
+        };
+
+        try (CSVWriter writer = new CSVWriter(new FileWriter("history.csv", true))) {
+            writer.writeNext(entries);
+        }
     }
 
 }

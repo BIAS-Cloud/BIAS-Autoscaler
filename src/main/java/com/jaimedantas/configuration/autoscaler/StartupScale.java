@@ -14,7 +14,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.security.GeneralSecurityException;
 
 @Context
@@ -55,6 +58,16 @@ public class StartupScale {
             logger.warn("Scaling out REGULAR instance");
             ScalingState.setLastScaleOutRegular(System.currentTimeMillis());
             instanceAllocation.addInstanceToGroup(InstanceType.ONDEMAND);
+        }
+
+        logger.warn("Creating CSV file");
+        try (PrintWriter writer = new PrintWriter(new File("history.csv"))) {
+
+            String sb = "timestamp,cpu_burstable,cpu_regular,weight,arrival_rate,predicted_burstable,predicted_regular,current_burstable,current_regular\n";
+            writer.write(sb);
+
+        } catch (Exception e) {
+            logger.error("Could not create CSV file", e);
         }
 
     }
