@@ -57,7 +57,8 @@ scaling:
   cpu-samples: 3
   autoscaler-decision-interval: 60s
   autoscaler-scale-waiting-time: 90 # time by witch the autoscaler will wait to the next scale out/in in seconds
-  mu: 600 # mu is the capacity in minuted for the SR Rule where R = arrival/mu
+  mu: 1000 # mu is the capacity in minuted for the SR Rule where R = arrival/mu
+  m: 1.0 # overprovisioning constant using burstable instances
 
 
 

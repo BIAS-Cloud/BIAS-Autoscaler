@@ -24,5 +24,6 @@ public class ScalingConfiguration {
     String cpuSamples;
     String autoscalerControlInterval;
     Double mu;
+    Double m;
 
 }

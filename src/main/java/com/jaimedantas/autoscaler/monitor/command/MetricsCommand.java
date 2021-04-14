@@ -17,7 +17,7 @@ public class MetricsCommand {
      * @param cpuList
      * @return
      */
-    public static long getArrivalOndemand(List<ArrivalRate> cpuList){
+    public static long getArrivalRequests(List<ArrivalRate> cpuList){
         List<ArrivalRate> ondemandList = new ArrayList<>();
         List<ArrivalRate> burstableList = new ArrayList<>();
 
@@ -90,6 +90,7 @@ public class MetricsCommand {
      * @param cpuList
      * @return
      */
+    @Deprecated
     public static HashMap<InstanceType, Integer> getCurrentNumberInstances(List<InstanceCpuUtilization> cpuList){
         HashMap<InstanceType, Integer> numberOfInstances = new HashMap<>();
         List<String> instancesNamesBurstable = new ArrayList<>();

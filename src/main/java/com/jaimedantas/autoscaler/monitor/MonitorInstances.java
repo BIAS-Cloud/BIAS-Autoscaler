@@ -91,6 +91,11 @@ public class MonitorInstances {
 
     }
 
+    /**
+     * Gets the current number of instances of the cluster
+     * @param instanceType
+     * @return
+     */
     public int getNumberOfInstances(InstanceType instanceType) throws IOException, GeneralSecurityException {
         String instanceGroup = null;
 

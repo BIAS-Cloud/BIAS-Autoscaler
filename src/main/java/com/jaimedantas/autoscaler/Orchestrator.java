@@ -70,15 +70,15 @@ public class Orchestrator {
         // monitoring
         List<ArrivalRate> arrivalRateList = monitorLoadBalancer.fetchArrivalRate();
         List<InstanceCpuUtilization> instanceCpuUtilizationList = monitorInstances.fetchCpuInstances();
-        long lastArrivalRate = MetricsCommand.getArrivalOndemand(arrivalRateList);
+        long lastArrivalRate = MetricsCommand.getArrivalRequests(arrivalRateList);
         double cpuBurstable = MetricsCommand.getCpuBurstable(instanceCpuUtilizationList);
         double cpuOndemand = MetricsCommand.getCpuOndemand(instanceCpuUtilizationList);
         // weight of burstable
         ScalingState.setCurrentBurstableWeight(backendServiceUsage.getBurstableWeight());
 
-        logger.info("Arrival Rate Ondemand: {} req/min", lastArrivalRate);
-        logger.info("CPU of Burstable: {}%", String.format("%.2f",cpuBurstable * 100));
-        logger.info("CPU of Ondemand: {}%",  String.format("%.2f",cpuOndemand * 100));
+        logger.info("Arrival Rate: {} req/min", lastArrivalRate);
+        logger.info("CPU of BURSTABLE: {}%", String.format("%.2f",cpuBurstable * 100));
+        logger.info("CPU of REGULAR: {}%",  String.format("%.2f",cpuOndemand * 100));
 
         // validation
         int r = resource.calculateR(lastArrivalRate);
