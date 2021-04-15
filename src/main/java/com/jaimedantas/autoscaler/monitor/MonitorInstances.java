@@ -31,6 +31,10 @@ public class MonitorInstances {
 
     private static final Logger logger = LoggerFactory.getLogger(MonitorInstances.class);
 
+    /**
+     * Fetches the CPU utilization of all instances .
+     * @return List with the two instance types and its CPU utilization.
+     */
     @SneakyThrows
     public List<InstanceCpuUtilization> fetchCpuInstances() {
 
@@ -92,7 +96,7 @@ public class MonitorInstances {
     }
 
     /**
-     * Gets the current number of instances of the cluster
+     * Gets the current number of instances of the cluster.
      * @param instanceType
      * @return
      */

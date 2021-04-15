@@ -28,6 +28,15 @@ public class ScalingControl {
     @Inject
     AutoscalerConfiguration autoscalerConfiguration;
 
+    /**
+     * It runs the scaling pipeline to scale ou/in the cluster using the pre-defined scaling policy.
+     * @param regularInstances
+     * @param currentRegularInstances
+     * @param burstableInstances
+     * @param currentBurstableInstances
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
     public void performScaling(int regularInstances, int currentRegularInstances, int burstableInstances, int currentBurstableInstances) throws IOException, GeneralSecurityException {
 
         // weight of burstable

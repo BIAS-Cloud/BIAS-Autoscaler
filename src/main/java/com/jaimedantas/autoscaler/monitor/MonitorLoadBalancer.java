@@ -23,6 +23,10 @@ public class MonitorLoadBalancer {
 
     private static final Logger logger = LoggerFactory.getLogger(MonitorLoadBalancer.class);
 
+    /**
+     * Fetches the arraval rate lambda from the Google Cloud Load balancer.
+     * @return List with the arrival rates per instance type.
+     */
     @SneakyThrows
     public List<ArrivalRate> fetchArrivalRate() {
 

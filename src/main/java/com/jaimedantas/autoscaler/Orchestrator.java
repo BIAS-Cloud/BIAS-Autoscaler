@@ -62,6 +62,12 @@ public class Orchestrator {
     @Inject
     Resource resource;
 
+    /**
+     * Orchestrator responsible for running the workflow of monitor, scaling and control.
+     * @throws IOException
+     * @throws GeneralSecurityException
+     * @throws InvalidProbabilityQueueException
+     */
     @Scheduled(fixedDelay = "${scaling.autoscaler-decision-interval}", initialDelay = "10s")
     void executeAutoscaler() throws IOException, GeneralSecurityException, InvalidProbabilityQueueException {
 

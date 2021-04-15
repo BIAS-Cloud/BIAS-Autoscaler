@@ -10,7 +10,7 @@ metrics.
 BIAS Autoscaler uses the Google API and Google SDK for scaling out and in Compute Engine instances. The Cloud Load Balancing
 is used for tuning the CPU usage of the burstable instances in real time. 
 
-<p align="center"><img src="/docs/gcp_diagram.jpg" height="70%" width="70%"> </p>
+<p align="center"><img src="/docs/GCP_diagram.jpg" height="70%" width="70%"> </p>
 
 ### Internal design
 The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy parts.
