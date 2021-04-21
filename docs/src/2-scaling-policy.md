@@ -8,7 +8,7 @@ strategy for BIAS Autoscaler. We assume
 that our load balancer, the Google Cloud Load Balancer, follows the Join the 
 Shortest Queue (JSQ) model. From that, based on the previous development 
 done by on H. -. Lin and C. S. Raghavendra, we consider our system as a 
-M/M/k queueing system, which is shown on figure below.
+M/M/k queueing system, which is shown in the figure below.
 
 ![](../img/mmk.png)
 
@@ -22,14 +22,12 @@ Let `m` be the overprovisioning constant to overprovision our resource
 ### Index
 
 1. [Quick Start](../src/1-quick-start.md)
-   - [Run autoscaler](../src/1-1-run.md)
-   - [Configure autoscaler](../src/1-2-configure.md)
+   - [Run Autoscaler](../src/1-1-run.md)
+   - [Configure Autoscaler](../src/1-2-configure.md)
 2. [Scaling Policy](../src/2-scaling-policy.md)
 3. [Autoscaler Architecture](../src/3-architecture.md)
    - [Monitor](../src/3-1-monitor.md)
    - [Scaling Policy](../src/3-2-scaling-policy.md)
    - [Controller](../src/3-3-controller.md)
 4. [Benchmark Tests](../src/4-benchmark-tests.md)
-   - [Burstable Instances](../src/4-1-burstable.md)
-   - [Regular Instances](../src/4-2-regular.md)
 5. [APIs](../src/5-apis.md)

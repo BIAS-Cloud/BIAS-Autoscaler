@@ -2,7 +2,6 @@
 
 You can manage your cluster by calling the different APIs from BIAS Autoscaler.
 
-
 ### Swagger
 We implemented Swagger on BIAS Autoscaler.
  
@@ -19,6 +18,4 @@ We implemented Swagger on BIAS Autoscaler.
    - [Scaling Policy](../src/3-2-scaling-policy.md)
    - [Controller](../src/3-3-controller.md)
 4. [Benchmark Tests](../src/4-benchmark-tests.md)
-   - [Burstable Instances](../src/4-1-burstable.md)
-   - [Regular Instances](../src/4-2-regular.md)
 5. [APIs](../src/5-apis.md)

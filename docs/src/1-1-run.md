@@ -1,6 +1,5 @@
 # Run
-
-You Can run BIAS Autoscaler on a Google Compute Engine or as a pod on Google Kubernetes
+You can run BIAS Autoscaler on a Google Compute Engine or as a pod on Google Kubernetes
 Engine.
 
 ## Requirements
@@ -20,7 +19,7 @@ To run the BIAS Autoscaler, run:
 $ java -jar bias-autoscaler-0.1.jar
 ```
 
-## Startup Log
+## Startup
 BIAS Autoscaler will make sure the cluster has the same configuration as the property
 file during startup time. In the log below, you can see that BIAS Autoscaler scales out two 
 instances during the startup since the cluster has less instances that the minimum defined. 
@@ -61,14 +60,12 @@ Autoscaler reads all metrics, calculates de future demand, and scales out the cl
 ### Index
 
 1. [Quick Start](../src/1-quick-start.md)
-   - [Run autoscaler](../src/1-1-run.md)
-   - [Configure autoscaler](../src/1-2-configure.md)
+   - [Run Autoscaler](../src/1-1-run.md)
+   - [Configure Autoscaler](../src/1-2-configure.md)
 2. [Scaling Policy](../src/2-scaling-policy.md)
 3. [Autoscaler Architecture](../src/3-architecture.md)
    - [Monitor](../src/3-1-monitor.md)
    - [Scaling Policy](../src/3-2-scaling-policy.md)
    - [Controller](../src/3-3-controller.md)
 4. [Benchmark Tests](../src/4-benchmark-tests.md)
-   - [Burstable Instances](../src/4-1-burstable.md)
-   - [Regular Instances](../src/4-2-regular.md)
 5. [APIs](../src/5-apis.md)

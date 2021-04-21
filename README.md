@@ -38,16 +38,14 @@ All documentation is available [here](/docs/README.md).
 #### Index
 
 1. [Quick Start](docs/src/1-quick-start.md)
-   - [Run autoscaler](docs/src/1-1-run.md)
-   - [Configure autoscaler](docs/src/1-2-configure.md)
+   - [Run Autoscaler](docs/src/1-1-run.md)
+   - [Configure Autoscaler](docs/src/1-2-configure.md)
 2. [Scaling Policy](docs/src/2-scaling-policy.md)
 3. [Autoscaler Architecture](docs/src/3-architecture.md)
    - [Monitor](docs/src/3-1-monitor.md)
    - [Scaling Policy](docs/src/3-2-scaling-policy.md)
    - [Controller](docs/src/3-3-controller.md)
 4. [Benchmark Tests](docs/src/4-benchmark-tests.md)
-   - [Burstable Instances](docs/src/4-1-burstable.md)
-   - [Regular Instances](docs/src/4-2-regular.md)
 5. [APIs](docs/src/5-apis.md)
 
 Swagger UI is used for documentation. You can find the information accessing the webpage below.
