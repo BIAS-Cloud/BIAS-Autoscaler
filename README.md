@@ -1,21 +1,20 @@
-<p align="center"><img src="/docs/BIAS_logo.png" height="40%" width="40%"> </p>
+<p align="center"><img src="/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
 
 # BIAS Autoscaler
-BIAS Autoscaler leverages burstable instances for scaling Computer Engine instances on GCP. It automatically scales out and in
-Compute Engines on Google Cloud. Unlike most of the autoscalers available in the industry, BIAS Austoscaler 
-make use of burstable instances for reducing the cost of cloud resources up to 50% while increasing quality of service
+BIAS Autoscaler leverages burstable instances for scaling Google Computer Engine instances on GCP. Unlike most of the autoscalers available in the industry, BIAS Austoscaler 
+uses burstable instances for reducing cost and increasing efficiency of cloud resources while maintaining quality of service
 metrics.
 
 ## Architecture
-BIAS Autoscaler uses the Google API and Google SDK for scaling out and in Compute Engine instances. The Cloud Load Balancing
+BIAS Autoscaler uses the Google API and Google SDK for scaling out and in Google Compute Engine instances. The Google Cloud Load Balancer
 is used for tuning the CPU usage of the burstable instances in real time. 
 
-<p align="center"><img src="/docs/GCP_diagram.jpg" height="70%" width="70%"> </p>
+<p align="center"><img src="/docs/img/GCP_diagram.png" height="70%" width="70%"> </p>
 
 ### Internal design
-The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy parts.
+The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy.
 
-<p align="center"><img src="/docs/BIAS_architecture.jpg" height="50%" width="50%"> </p>
+<p align="center"><img src="/docs/img/BIAS_architecture.jpg" height="50%" width="50%"> </p>
 
 ## Languages and frameworks
  - Java 11
@@ -34,16 +33,17 @@ The internal architecture of the BIAS Autoscaler consists of three major blocks:
 - Google Cloud SDK
 
 ## Documentation
+All documentation is available [here]()
 Swagger UI is used for documentation. You can find the information accessing the webpage below.
 ```
 http://localhost:8080/swagger/views/swagger-ui/
 ```
 You can manage your cluster using the Swagger interface of the BIAS Autoscaler.  
 
-<p align="center"><img src="/docs/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
+<p align="center"><img src="/docs/img/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
 
 ## Building From Source
-To build from source checkout the code and run:
+To build from source, checkout the code and run:
 ```
 $ mvn clean install
 ```
