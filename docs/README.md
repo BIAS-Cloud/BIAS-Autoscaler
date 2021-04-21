@@ -1,3 +1,5 @@
+<p align="center"><img src="/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
+
 ## BIAS Autoscaler
 Burstable instances have recently been introduced by cloud provides as a
 cost-efficient alternative to customers that do not require powerful machines
@@ -16,15 +18,15 @@ can reduce the overall cost up to 25% and increase cluster efficiency in
 
 ### Index
 
-1. [Quick Start](1-quick-start.md)
-   - [Run autoscaler](1-1-run.md)
-   - [Configure autoscaler](1-2-configure.md)
-2. [Scaling Policy](2-scaling-policy.md)
-3. [Autoscaler Architecture](3-architecture.md)
-   - [Monitor](3-1-monitor.md)
-   - [Scaling Policy](3-2-scaling-policy.md)
-   - [Controller](3-3-controller.md)
-4. [Benchmark Tests](4-benchmark-tests.md)
-   - [Burstable Instances](4-1-burstable.md)
-   - [Regular Instances](4-2-regular.md)
-5. [APIs](5-apis.md)
+1. [Quick Start](src/1-quick-start.md)
+   - [Run autoscaler](src/1-1-run.md)
+   - [Configure autoscaler](src/1-2-configure.md)
+2. [Scaling Policy](src/2-scaling-policy.md)
+3. [Autoscaler Architecture](src/3-architecture.md)
+   - [Monitor](src/3-1-monitor.md)
+   - [Scaling Policy](src/3-2-scaling-policy.md)
+   - [Controller](src/3-3-controller.md)
+4. [Benchmark Tests](src/4-benchmark-tests.md)
+   - [Burstable Instances](src/4-1-burstable.md)
+   - [Regular Instances](src/4-2-regular.md)
+5. [APIs](src/5-apis.md)
