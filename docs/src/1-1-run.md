@@ -22,7 +22,7 @@ $ java -jar bias-autoscaler-0.1.jar
 ## Startup
 BIAS Autoscaler will make sure the cluster has the same configuration as the property
 file during startup time. In the log below, you can see that BIAS Autoscaler scales out two 
-instances during the startup since the cluster has less instances that the minimum defined. 
+instances during the startup since the cluster had less instances than the minimum defined. 
 
 ```
  __  __ _                                  _   
@@ -41,7 +41,7 @@ instances during the startup since the cluster has less instances that the minim
 
 ## Execution Log
 BIAS Autoscaler will log evey action it performs. Below you can find a single run where BIAS
-Autoscaler reads all metrics, calculates de future demand, and scales out the cluster.
+Autoscaler reads all metrics, calculates the future demand, and scales out the cluster.
 ```
 01:49:20.835 [scheduled-executor-thread-4] INFO  c.j.autoscaler.Orchestrator - Running the scheduler for the Autoscaler
 01:49:23.045 [scheduled-executor-thread-4] INFO  c.j.autoscaler.Orchestrator - Arrival Rate: 1145 req/min

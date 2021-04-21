@@ -15,7 +15,7 @@ predicted number of burstable and regular instances.
 
 ### Implementing Your Own Scaling Algorithm
 Any scaling strategy can be used on BIAS Autoscaler. In order to do so, you need to create
-a implement the same methods as the ones on [SquareRootStaffing](https://github.com/jaimedantas/BIAS-autoscaler/blob/main/src/main/java/com/jaimedantas/autoscaler/scaling/SquareRootStaffing.java).
+and implement the same methods as the ones on [SquareRootStaffing](https://github.com/jaimedantas/BIAS-autoscaler/blob/main/src/main/java/com/jaimedantas/autoscaler/scaling/SquareRootStaffing.java).
 ```
 autoscaler
 └───scaling
@@ -24,7 +24,7 @@ autoscaler
     └──SquareRootStaffing.java
 ```
 Only two methods are required: one that outputs de number of burstable instances, and 
-another one for the regular ones. The example below inlustrates how you can implement your onw methods for scaling. 
+another one for the regular ones. The example below illustrates how you can implement your own methods for scaling. 
  
  ```java
     /**
@@ -48,7 +48,7 @@ another one for the regular ones. The example below inlustrates how you can impl
     }
 ```
 If your strategy needs to read the current and past metrics, you can do so by calling any of the methods 
-from the monitor block. For example, if you need the total number of instances, just call `getNumberOfInstances()`.
+from the monitor component. For example, if you need the total number of instances, just call `getNumberOfInstances()`.
 
 ![](../img/BIAS_flowchart.png)
 

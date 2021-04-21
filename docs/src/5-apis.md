@@ -2,6 +2,8 @@
 
 You can manage your cluster by calling the different APIs from BIAS Autoscaler.
 
+![](../img/apis.png)
+
 ### Swagger
 We implemented Swagger on BIAS Autoscaler.
  
