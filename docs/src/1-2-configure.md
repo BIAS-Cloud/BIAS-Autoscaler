@@ -2,7 +2,7 @@
 The [application.yml](https://github.com/jaimedantas/BIAS-autoscaler/blob/main/src/main/resources/application.yml) 
 file has all properties required to run BIAS Autoscaler on Google Cloud. Bear in mind it needs to 
 run in the same cluster you are performing the autoscaling. It you wish to run it in a different
-cluster, you need to configure the Google Cloud SDK to authenticate the pod/VM on your cluster. 
+cluster, you need to configure the [Google Cloud SDK](https://cloud.google.com/sdk/) to authenticate the pod/VM on your cluster. 
 ### Properties
 
 ```yml

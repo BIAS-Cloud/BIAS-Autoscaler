@@ -6,6 +6,10 @@ You can manage your cluster by calling the different APIs from BIAS Autoscaler.
 
 ### Swagger
 We implemented Swagger on BIAS Autoscaler.
+
+```
+http://localhost:8080/swagger/views/swagger-ui/
+```
  
 <p align="center"><img src="/docs/img/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
 

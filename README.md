@@ -48,26 +48,9 @@ All documentation is available [here](/docs/README.md).
 4. [Benchmark Tests](docs/src/4-benchmark-tests.md)
 5. [APIs](docs/src/5-apis.md)
 
-Swagger UI is used for documentation. You can find the information accessing the webpage below.
-```
-http://localhost:8080/swagger/views/swagger-ui/
-```
-You can manage your cluster using the Swagger interface of the BIAS Autoscaler.  
 
-<p align="center"><img src="/docs/img/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
+## Authors
+Jaime Dantas - Founder, Author, Development, Test, Documentation - [jaimedantas](https://github.com/jaimedantas)
 
-## Building From Source
-To build from source, checkout the code and run:
-```
-$ mvn clean install
-```
-## Run
-To run the BIAS Autoscaler, run:
-
-```
-$ java -jar bias-autoscaler-0.1.jar
-```
-
-## Configuration
-If you wish to run BIAS Austoscaler outside of Google Cloud environment, i.e., on your local machine, you
-need to set the required credentials locally using the [Google Cloud SDK](https://cloud.google.com/sdk/).
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
