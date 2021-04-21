@@ -50,7 +50,7 @@ All documentation is available [here](/docs/README.md).
 
 
 ## Authors
-Jaime Dantas - Founder, Author, Development, Test, Documentation - [jaimedantas](https://github.com/jaimedantas)
+[Jaime Dantas](https://jaimedantas.com/) - Founder, Author, Development, Test, Documentation.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
