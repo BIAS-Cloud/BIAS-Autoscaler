@@ -1,4 +1,4 @@
-<p align="center"><img src="/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
+<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
 
 # BIAS Autoscaler
 BIAS Autoscaler leverages burstable instances for scaling Google Computer Engine instances on GCP. Unlike most of the autoscalers available in the industry, BIAS Austoscaler 
@@ -9,12 +9,12 @@ metrics.
 BIAS Autoscaler uses the Google API and Google SDK for scaling out and in Google Compute Engine instances. The Google Cloud Load Balancer
 is used for tuning the CPU usage of the burstable instances in real time. 
 
-<p align="center"><img src="/docs/img/GCP_diagram.png" height="70%" width="70%"> </p>
+<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/GCP_diagram.png" height="70%" width="70%"> </p>
 
 ### Internal design
 The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy.
 
-<p align="center"><img src="/docs/img/BIAS_architecture.jpg" height="50%" width="50%"> </p>
+<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_architecture.jpg" height="50%" width="50%"> </p>
 
 ## Languages and frameworks
  - Java 11
