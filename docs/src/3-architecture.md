@@ -22,7 +22,7 @@ borders internally, and the user can set their own scaling algorithm,
 as well as the desired SLOs and re- source configuration. 
 The internal architecture of BIAS Autoscaler is shown in the figure below.
 
-<p align="center"><img src="../img/BIAS_architecture_colour.png" height="50%" width="50%"> </p>
+<p align="center"><img src="../img/BIAS_architecture_colour.jpg" height="50%" width="50%"> </p>
 
 ### Index
 
