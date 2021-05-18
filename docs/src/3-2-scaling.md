@@ -48,7 +48,7 @@ from the monitor component. For example, if you need the total number of instanc
 2. [Scaling Policy](../src/2-scaling-policy.md)
 3. [Autoscaler Architecture](../src/3-architecture.md)
    - [Monitor](../src/3-1-monitor.md)
-   - [Scaling Policy](../src/3-2-scaling-policy.md)
+   - [Scaling](../src/3-2-scaling.md)
    - [Controller](../src/3-3-controller.md)
 4. [Benchmark Tests](../src/4-benchmark-tests.md)
 5. [APIs](../src/5-apis.md)

@@ -43,7 +43,7 @@ All documentation is available [here](/docs/README.md).
 2. [Scaling Policy](docs/src/2-scaling-policy.md)
 3. [Autoscaler Architecture](docs/src/3-architecture.md)
    - [Monitor](docs/src/3-1-monitor.md)
-   - [Scaling Policy](docs/src/3-2-scaling-policy.md)
+   - [Scaling](docs/src/3-2-scaling.md)
    - [Controller](docs/src/3-3-controller.md)
 4. [Benchmark Tests](docs/src/4-benchmark-tests.md)
 5. [APIs](docs/src/5-apis.md)
