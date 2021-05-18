@@ -51,6 +51,9 @@ All documentation is available [here](/docs/README.md).
 
 ## Authors
 [Jaime Dantas](https://jaimedantas.com/) - Founder, Author, Development, Test, Documentation.
+### Citation
+This work is currently under review, and the bibtex entry for citing our work 
+will be available soon.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

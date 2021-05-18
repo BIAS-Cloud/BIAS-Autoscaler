@@ -1,17 +1,5 @@
-# Scaling Policy
-This component is where the scaling algorithm is implemented. 
-It reads the metrics provided by the monitor component, 
-and calculates the number of burstable and regular instances 
-of the current demand. This information is then fed to the controller 
-module so it can perform the scaling of the cluster. Currently, 
-BIAS Autoscaler supports only the Square-Root Staffing Rule (SR Rule) 
-scaling policy, but any policy can be applied. This is because all 
-information regarding time-series data of the metrics is already 
-provided by the monitor module, so even a predictive model can be 
-easily added on BIAS Autoscaler. This module receives all the metrics 
-(CPU utilization, number of each instances, and weights and arrival rate 
-of each instance type from the load balancer) as input, and outputs the 
-predicted number of burstable and regular instances.
+# Scaling 
+This is where the scaling algorithm is implemented. Currently, it only supports the SR Rule.
 
 ### Implementing Your Own Scaling Algorithm
 Any scaling strategy can be used on BIAS Autoscaler. In order to do so, you need to create

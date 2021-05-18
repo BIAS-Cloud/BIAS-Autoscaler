@@ -1,13 +1,5 @@
 # Controller
 This module is the core of BIAS Autoscaler. 
-The number of burstable and regular instances is provided to this component,
- and it outputs the necessary changes to the cluster. It uses the Google 
- Cloud Java API to control the load balancer traffic distribution of 
- the instance groups, and scales out/in the Google Compute Engine 
- instances. The user can set the frequency by which it performs
-  the autoscaling, or use the default one which is 60 seconds. 
-  The flowchart on figure 3 shows how these modules communicate and 
-  perform the autoscaling.
 
 ![](../img/BIAS_flowchart.png)
 

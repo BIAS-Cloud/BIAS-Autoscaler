@@ -1,21 +1,9 @@
 # Quick Start
-In order to use BIAS Autoscaler on GCP, the cluster needs to be configured to support
- external autoscaling. To do this, the first step required is to create two instance
-  groups, one for each instance type. The user can choose to create an instance 
-  template to use across these instance groups. Then, the Google Load Balancer 
-  needs to be configured so it can distribute the traffic between these two instance
-   groups based on the average CPU utilization of the instances. This will allow 
-   BIAS Autoscaler to dynamically update the weights of the burstable instance group.
+In order to use BIAS Autoscaler on GCP, two instance
+  groups need to be created, one for each instance type. Also, the Google Load Balancer 
+  needs to be configured to distribute the traffic between these two instance
+   groups based on the average CPU utilization of the instances.
 
-
-
-BIAS Autoscaler has a configuration file where the user adds all the cluster 
-information. There are also variables to adjusts the scaling frequency, 
-minimum and maximum instances of each group, delay for scaling out/in, overprovisioning configuration and other
-properties concerning the scaling policy used. Finally, BIAS Autoscaler 
-can run either in a container or inside a Google Compute Engine. 
-Since it uses the Google Cloud SDK, no authentication configuration 
-is required when running it inside the same cluster
 
 ### Index
 
