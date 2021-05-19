@@ -1,4 +1,4 @@
-<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
+<p align="center"><img src="https://bias-cloud.github.io/BIAS-autoscaler/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
 
 ## BIAS Autoscaler
 BIAS Autoscaler combines regular instances with burstable ones for scaling Google Compute

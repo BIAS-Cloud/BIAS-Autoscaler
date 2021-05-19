@@ -11,7 +11,7 @@ We implemented Swagger on BIAS Autoscaler.
 http://localhost:8080/swagger/views/swagger-ui/
 ```
  
-<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
+<p align="center"><img src="https://bias-cloud.github.io/BIAS-autoscaler/docs/img/BIAS_Swagger_print.png" height="50%" width="50%"> </p>
 
 ### Index
 

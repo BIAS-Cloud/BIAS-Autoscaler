@@ -1,4 +1,4 @@
-<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
+<p align="center"><img src="https://bias-cloud.github.io/BIAS-autoscaler/docs/img/BIAS_logo.png" height="40%" width="40%"> </p>
 
 # BIAS Autoscaler
 BIAS Autoscaler leverages burstable instances for scaling Google Computer Engine instances on GCP. Unlike most of the autoscalers available in the industry, BIAS Austoscaler 
@@ -9,12 +9,12 @@ metrics.
 BIAS Autoscaler uses the Google API and Google SDK for scaling out and in Google Compute Engine instances. The Google Cloud Load Balancer
 is used for tuning the CPU usage of the burstable instances in real time. 
 
-<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/GCP_diagram.png" height="70%" width="70%"> </p>
+<p align="center"><img src="https://bias-cloud.github.io/BIAS-autoscaler/docs/img/GCP_diagram.png" height="70%" width="70%"> </p>
 
 ### Internal design
 The internal architecture of the BIAS Autoscaler consists of three major blocks: Controller, Monitor and Scaling Policy.
 
-<p align="center"><img src="https://jaimedantas.com/BIAS-autoscaler/docs/img/BIAS_architecture.jpg" height="50%" width="50%"> </p>
+<p align="center"><img src="https://bias-cloud.github.io/BIAS-autoscaler/docs/img/BIAS_architecture.jpg" height="50%" width="50%"> </p>
 
 ## Languages and frameworks
  - Java 11
@@ -48,12 +48,8 @@ All documentation is available [here](/docs/README.md).
 4. [Benchmark Tests](docs/src/4-benchmark-tests.md)
 5. [APIs](docs/src/5-apis.md)
 
-
-## Authors
-[Jaime Dantas](https://jaimedantas.com/) - Founder, Author, Development, Test, Documentation.
 ### Citation
-This work is currently under review, and the bibtex entry for citing our work 
-will be available soon.
+This work is currently under review, and the bibtex entry for citing it will be available soon.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
