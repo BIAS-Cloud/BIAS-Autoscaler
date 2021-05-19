@@ -3,7 +3,7 @@ This is where the scaling algorithm is implemented. Currently, it only supports 
 
 ### Implementing Your Own Scaling Algorithm
 Any scaling strategy can be used on BIAS Autoscaler. In order to do so, you need to create
-and implement the same methods as the ones on [SquareRootStaffing](https://github.com/jaimedantas/BIAS-autoscaler/blob/main/src/main/java/com/jaimedantas/autoscaler/scaling/SquareRootStaffing.java).
+and implement the same methods as the ones on [SquareRootStaffing](https://github.com/bias-cloud/BIAS-Autoscaler/blob/main/src/main/java/com/jaimedantas/autoscaler/scaling/SquareRootStaffing.java).
 ```
 autoscaler
 └───scaling
