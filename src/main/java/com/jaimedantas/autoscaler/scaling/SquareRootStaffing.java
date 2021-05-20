@@ -21,12 +21,12 @@ public class SquareRootStaffing {
     }
 
     /**
-     * Calculates the Square Root Staffing with overprovisioning k_m = m * R + c * sqrt(m * R)
+     * Calculates the Square Root Staffing with overprovisioning k_m = (m -1) * R + c * sqrt(m * R)
      * @param r arrival/mu
      * @return the number of instances k_m
      */
     private int calculateNumberOfInstancesWithOverprovisioning(long r) throws InvalidProbabilityQueueException {
-        return (int) Math.round(((scalingConfiguration.getM() - 1)  * r) + getProbabilityQueue() * Math.sqrt(scalingConfiguration.getM() * r));
+        return (int) Math.round((scalingConfiguration.getM() - 1)  * r + getProbabilityQueue() * Math.sqrt(scalingConfiguration.getM() * r));
     }
 
     /**
