@@ -26,7 +26,7 @@ public class SquareRootStaffing {
      * @return the number of instances k_m
      */
     private int calculateNumberOfInstancesWithOverprovisioning(long r) throws InvalidProbabilityQueueException {
-        return (int) Math.round(scalingConfiguration.getM() * r + getProbabilityQueue() * Math.sqrt(scalingConfiguration.getM() * r));
+        return (int) Math.round(((scalingConfiguration.getM() - 1)  * r) + getProbabilityQueue() * Math.sqrt(scalingConfiguration.getM() * r));
     }
 
     /**
