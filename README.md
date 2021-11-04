@@ -51,7 +51,7 @@ All documentation is available [here](/docs/README.md).
 ### Citation
 This work was published in the WoSC7:
 
-Jaime Dantas, Hamzeh Khazaei and Marin Litoiu. 2021. BIAS Autoscaler: Leveraging Burstable Instances for Cost-Effective Au- toscaling on Cloud Systems. In *Seventh International Workshop on Serverless Computing (WoSC7) 2021 (WoSC ’21), December 6, 2021, Virtual Event, Canada.* ACM, New York, NY, USA, 8 pages. https://doi.org/10.1145/3493651.3493667
+Jaime Dantas, Hamzeh Khazaei and Marin Litoiu. 2021. BIAS Autoscaler: Leveraging Burstable Instances for Cost-Effective Autoscaling on Cloud Systems. In *Seventh International Workshop on Serverless Computing (WoSC7) 2021 (WoSC ’21), December 6, 2021, Virtual Event, Canada.* ACM, New York, NY, USA, 8 pages. https://doi.org/10.1145/3493651.3493667
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
